@@ -8,11 +8,12 @@
     "html",
     "vue"
   ],
-  "eslint.enable": true,
+  "eslint.enable": false,
   "emmet.includeLanguages": {
     "vue-html": "html",
     "vue": "html"
   },
   "emmet.triggerExpansionOnTab": true,
+  // "typescript.tsdk": "node_modules\\typescript\\lib",
   "javascript.implicitProjectConfig.experimentalDecorators": true
 }

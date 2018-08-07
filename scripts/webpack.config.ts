@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { Configuration, NamedModulesPlugin, NamedChunksPlugin } from 'webpack';
-
+import { VueLoaderPlugin } from 'vue-loader';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 const config: Configuration = {
@@ -11,12 +12,13 @@ const config: Configuration = {
     path: resolve(__dirname, '../dist'),
     filename: '[name].js',
     chunkFilename: '[name].js',
+    publicPath: ''
   },
   stats: {
     // warningsFilter: /export .* was not found in/,
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.vue', '.vuex', '.json', '.less'],
+    extensions: ['.ts', '.tsx', '.vue', '.vuex', '.json', '.less'],
     // alias: aliasName.alias,
     mainFields: ['jsnext:main', 'module', 'main'],
     modules: [
@@ -41,22 +43,22 @@ const config: Configuration = {
 
       //   },
       // },
-      // {
-      //     test: /\.vue$/,
-      //     loader: 'vue-loader',
-      //     options: {
-      //         loaders: {
-      //             ts: 'ts-loader',
-      //             tsx: 'babel-loader!ts-loader',
-      //         }
-      //     }
-      // },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            ts: 'ts-loader',
+            tsx: 'babel-loader!ts-loader',
+          }
+        }
+      },
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
-          // transpileOnly: true,
-          // appendTsSuffixTo: [/\.vue$/],
+          transpileOnly: true,
+          appendTsSuffixTo: [/\.vue$/],
           // allowTsInNodeModules: false
         },
       },
@@ -70,6 +72,19 @@ const config: Configuration = {
     ],
   },
   plugins: [
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: 'dependency'
+    }),
     new NamedModulesPlugin(),
     new NamedChunksPlugin(),
     // new webpack.WatchIgnorePlugin([

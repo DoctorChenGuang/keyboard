@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "allowJs": false,
+    "allowJs": true,
     //识别基本的系统类库
     "lib": [
       "es6",
@@ -20,9 +20,10 @@
     // 这可以对 `this` 上的数据属性进行更严格的推断
     "strict": true,
   },
-  "include": [
-    "keyboard/**/*"
-  ],
+  // "include": [
+  //   "keyboard/**/*",
+  //   "src/**/*"
+  // ],
   "exclude": [
     "node_module"
   ],
