@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "allowJs": false,
+    //识别基本的系统类库
+    "lib": [
+      "es6",
+      "webworker",
+      "dom"
+    ],
+    "experimentalDecorators": true, //开启修饰器模式
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    // 这可以对 `this` 上的数据属性进行更严格的推断
+    "strict": true,
+  },
+  "include": [
+    "keyboard/**/*"
+  ],
+  "exclude": [
+    "node_module"
+  ],
+  "paths": {
+    "lib/*": [
+      "./litelib/*"
+    ]
+  }
+}
