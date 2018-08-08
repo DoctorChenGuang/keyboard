@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <input v-model="msg">
-    <p>msg: {{ msg }}</p>
-    <p>computed msg: {{ computedMsg }}</p>
-    <button @click="greet">Greet</button>
+    <input type="text" v-keyboard="'text'">
   </div>
 </template>
 
@@ -24,7 +21,7 @@
     };
 
     greet() {
-      alert('greeting: ' + this.msg)
+      console.log('greeting: ' + this.msg)
     }
   }
 </script>

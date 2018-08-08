@@ -23,6 +23,7 @@ const config: Configuration = {
     mainFields: ['jsnext:main', 'module', 'main'],
     modules: [
       resolve(__dirname, '../node_modules'),
+      resolve(__dirname, '../keyboard')
     ],
     // plugins: [new TsconfigPathsPlugin({
     //     configFile: resolve(__dirname, '../tsconfig.json')

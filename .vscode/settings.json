@@ -15,5 +15,5 @@
   },
   "emmet.triggerExpansionOnTab": true,
   // "typescript.tsdk": "node_modules\\typescript\\lib",
-  "javascript.implicitProjectConfig.experimentalDecorators": true
+  // "javascript.implicitProjectConfig.experimentalDecorators": true
 }
