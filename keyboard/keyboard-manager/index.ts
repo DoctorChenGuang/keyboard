@@ -1,4 +1,4 @@
-import { KeyboardTypes } from './keyboard-types';
+import { KeyboardTypes } from './keyboard-type';
 import KeyboardManager from './keyboard-manager';
 
 export {

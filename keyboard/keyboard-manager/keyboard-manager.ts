@@ -1,19 +1,24 @@
-import Keyboard from './keyboard';
-import fullOption from './full-option';
+import { Keyboard } from './keyboard';
+
+interface KeyboardConfig {
+  type?: string;
+  [propName: string]: any;
+}
 
 export default class KeyboardManager {
 
-  static keyboard
+  keyboard: Keyboard;
 
-  static configure(options) {
-    KeyboardManager.keyboard = new Keyboard(Object.keys(options)[0], options[Object.keys(options)[0]]) || new Keyboard("full", fullOption)
+  private configure(keyboardConfig) {
+    this.keyboard = new Keyboard(keyboardConfig);
   }
 
-  static showScreenKeyboardAsync() {
-    KeyboardManager.keyboard && KeyboardManager.keyboard.show()
+  public showScreenKeyboardAsync(target: EventTarget, keyboardConfig: KeyboardConfig, screenRegion: object): void {
+    this.configure(keyboardConfig);
+    this.keyboard.show(target, screenRegion);
   }
 
-  static closeScreenKeyboardAsync() {
-    KeyboardManager.keyboard && KeyboardManager.keyboard.show()
+  public closeScreenKeyboardAsync(): void {
+    this.keyboard.close();
   }
-}
+};

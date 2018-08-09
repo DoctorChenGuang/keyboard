@@ -3,12 +3,17 @@ import Vue, { VNode } from "vue";
 import utils from './utils';
 import KeyboardHandler from './keyboard-handler';
 
-//注册指令v-keyboard
-export default {
-  KeyboardHandler: new KeyboardHandler(),
-  install(Vue: any, options: any) {
+class defineDirective {
+  keyboardHandler: KeyboardHandler = new KeyboardHandler();
+
+  kbOptions: object = new Object();
+
+  install(Vue: any, options: any): void {
+    const _this = this;
     Vue.directive('keyboard', {
       bind(el: HTMLElement, binding: any): void {
+        _this.kbOptions = options;
+
         const input = utils.getCurrentElement(el);
 
         if (input === null) {
@@ -21,8 +26,7 @@ export default {
           return;
         }
 
-        // new KeyboardHandler().registerEventListener(input, binding.value);
-        this.KeyboardHandler.registerEventListener(input, binding.value);
+        _this.keyboardHandler.registerEventListener(input, binding.value);
       },
       unbind(el: HTMLElement): void {
         const input = utils.getCurrentElement(el);
@@ -32,9 +36,12 @@ export default {
           return;
         }
 
-        // new KeyboardHandler().removeEventListener(input);
-        this.KeyboardHandler.removeEventListener(input);
+        _this.keyboardHandler.removeEventListener(input);
       }
     })
   }
 }
+
+const kbDirective = new defineDirective();
+
+export default kbDirective;

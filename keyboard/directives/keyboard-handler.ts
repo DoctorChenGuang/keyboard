@@ -11,6 +11,7 @@ export default class KeyboardHandler {
   // public isUseSystemKeyboard: boolean = false;
   private keyboardConfig: KeyboardConfig = {};
 
+  keyboardManager: KeyboardManager = new KeyboardManager();
   isDisableCurrentElement(target: any): boolean {
     if (target.disabled) {
       return true;
@@ -51,7 +52,7 @@ export default class KeyboardHandler {
   }
   showKeyboardHandler(event: Event): void {
     let target = event.currentTarget;
-
+    console.log('this', this);
     if (this.isDisableCurrentElement(target)) return;
 
     const screenRegion = this.getCurrentElementRegion(target);
@@ -68,7 +69,7 @@ export default class KeyboardHandler {
     }
 
     target = utils.getCurrentElement(<HTMLElement>target);
-    KeyboardManager.showScreenKeyboardAsync(target, this.keyboardConfig, screenRegion);
+    this.keyboardManager.showScreenKeyboardAsync(<EventTarget>target, this.keyboardConfig, screenRegion);
   }
 
   closeKeyboardHandler(event: Event): void {
@@ -76,18 +77,18 @@ export default class KeyboardHandler {
     //   KeyboardPosManager.keyboardPositionReduction();//重置系统键盘位置,此处需要拆分开.
     //   return;
     // }
-    KeyboardManager.closeScreenKeyboardAsync();
+    this.keyboardManager.closeScreenKeyboardAsync();
   }
   registerEventListener(target: HTMLElement, keyboardConfig: object | string): void {
     this.setKeyboardConfig(keyboardConfig);
 
-    target.addEventListener('focusin', this.showKeyboardHandler);
-    target.addEventListener('focusout', this.closeKeyboardHandler);
-    target.addEventListener('click', this.showKeyboardHandler);
+    target.addEventListener('focusin', this.showKeyboardHandler.bind(this));
+    target.addEventListener('focusout', this.closeKeyboardHandler.bind(this));
+    target.addEventListener('click', this.showKeyboardHandler.bind(this));
   }
   removeEventListener(target: HTMLElement): void {
-    target.removeEventListener('focusin', this.showKeyboardHandler);
-    target.removeEventListener('focusout', this.closeKeyboardHandler);
-    target.removeEventListener('click', this.showKeyboardHandler);
+    target.removeEventListener('focusin', this.showKeyboardHandler.bind(this));
+    target.removeEventListener('focusout', this.closeKeyboardHandler.bind(this));
+    target.removeEventListener('click', this.showKeyboardHandler.bind(this));
   }
 }

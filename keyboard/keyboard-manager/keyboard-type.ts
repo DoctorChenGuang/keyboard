@@ -1,4 +1,4 @@
-export enum KeyboardTypes {
+export enum KeyboardType {
   none = 0,
   number = 1,
   text = 2,
@@ -9,4 +9,3 @@ export enum KeyboardTypes {
   numberWithoutPoint = 6,
   numberMinus = 7
 };
-
