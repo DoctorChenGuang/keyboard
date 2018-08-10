@@ -22,14 +22,15 @@
   },
   "include": [
     "keyboard/**/*",
-    "src/**/*"
+    "src/**/*",
+    "__test__/**/*"
   ],
   "exclude": [
     "node_module"
   ],
   "paths": {
     "lib/*": [
-      "./litelib/*"
+      // "./litelib/*"
     ]
   }
 }
