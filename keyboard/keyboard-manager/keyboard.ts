@@ -1,4 +1,5 @@
-import KeyboardType from './keyboard-type';
+import { KeyManager } from '../key-manager/key-manager';
+import { LayoutManager } from '../layout';
 
 export class Keyboard {
   keyboardName: string = '';
@@ -6,28 +7,22 @@ export class Keyboard {
   target: any;
   screenRegion: any;
 
-  constructor(keyboardConfig) {
-    this.keyboardName = keyboardConfig.type;
-    this.keyboardConfig = keyboardConfig;
+  constructor(keyboardMergedOption) {
+    this.keyboardName = keyboardMergedOption.type;
+    this.keyboardConfig = keyboardMergedOption;
   }
-  private getKeyboardName(keyboardName: string): string {
-    //从此处需要知道应该是什么类型的键盘
-    return keyboardName;
+
+  public show(target: EventTarget) {
+    const layout = new LayoutManager(this.keyboardName); // 创建键盘的布局
+    const keyboardKeys = layout.getKeys();
+    new KeyManager(keyboardKeys);  // 创建布局需要的按键key
+    
   }
-  private configure() {
-    const keyboardName = this.getKeyboardName(<string>keyboardConfig.type);
-  }
-  
-  createKeyboard() {
-    new KeyboardType();//创建什么类型的键盘，如果是用户自定义的键盘呢
-  }
+
   destoryKeyboard() {
     console.log('销毁键盘');
   }
 
-  public show(target: EventTarget, screenRegion: object) {
-    this.createKeyboard();//创建键盘
-  }
   public close() {
     this.destoryKeyboard();//销毁键盘
   }
@@ -36,4 +31,5 @@ export class Keyboard {
 export enum ScreenKeyboardPlacement {
   Bottom,
   Float,
+  Top
 }

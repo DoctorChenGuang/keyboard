@@ -6,14 +6,18 @@ import KeyboardHandler from './keyboard-handler';
 class defineDirective {
   keyboardHandler: KeyboardHandler = new KeyboardHandler();
 
-  kbOptions: object = new Object();
-
+  static configure() {
+    console.log('配置项设置');
+  }
   install(Vue: any, options: any): void {
+    if (!options) {
+      options = new Object();
+    }
+
     const _this = this;
+
     Vue.directive('keyboard', {
       bind(el: HTMLElement, binding: any): void {
-        _this.kbOptions = options;
-
         const input = utils.getCurrentElement(el);
 
         if (input === null) {
@@ -26,7 +30,7 @@ class defineDirective {
           return;
         }
 
-        _this.keyboardHandler.registerEventListener(input, binding.value);
+        _this.keyboardHandler.registerEventListener(input, binding.value, options);
       },
       unbind(el: HTMLElement): void {
         const input = utils.getCurrentElement(el);

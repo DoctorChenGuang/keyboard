@@ -9,8 +9,8 @@ interface KeyboardConfig {
 
 export default class KeyboardHandler {
   // public isUseSystemKeyboard: boolean = false;
-  private keyboardConfig: KeyboardConfig = {};
-
+  private keyboardConfig: KeyboardConfig = new Object();
+  private keyboardOptions: any = new Object();
   keyboardManager: KeyboardManager = new KeyboardManager();
   isDisableCurrentElement(target: any): boolean {
     if (target.disabled) {
@@ -50,9 +50,8 @@ export default class KeyboardHandler {
 
     this.keyboardConfig = <object>keyboardConfig;
   }
-  showKeyboardHandler(event: Event): void {
+  async showKeyboardHandler(event: Event): Promise<void> {
     let target = event.currentTarget;
-    console.log('this', this);
     if (this.isDisableCurrentElement(target)) return;
 
     const screenRegion = this.getCurrentElementRegion(target);
@@ -62,25 +61,26 @@ export default class KeyboardHandler {
     //   KeyboardPosManager.keyboardPositionUpwards(screenRegion);
     //   return;
     // }
-
-    if (!KeyboardTypes[<string>this.keyboardConfig.type]) {
-      utils.warn(`[Keyboard] invalid keyboard config:${this.keyboardConfig.type}`);
-      return;
-    }
+    // 判断此类型是否存在,合并配置选项,
+    // if (!KeyboardTypes[<string>this.keyboardConfig.type]) {
+    //   utils.warn(`[Keyboard] invalid keyboard config:${this.keyboardConfig.type}`);
+    //   return;
+    // }
 
     target = utils.getCurrentElement(<HTMLElement>target);
-    this.keyboardManager.showScreenKeyboardAsync(<EventTarget>target, this.keyboardConfig, screenRegion);
+    await this.keyboardManager.showScreenKeyboardAsync(<EventTarget>target, this.keyboardConfig, screenRegion, this.keyboardOptions);
   }
 
-  closeKeyboardHandler(event: Event): void {
+  async closeKeyboardHandler(event: Event): Promise<void> {
     // if (this.isUseSystemKeyboard) {
     //   KeyboardPosManager.keyboardPositionReduction();//重置系统键盘位置,此处需要拆分开.
     //   return;
     // }
-    this.keyboardManager.closeScreenKeyboardAsync();
+    await this.keyboardManager.closeScreenKeyboardAsync();
   }
-  registerEventListener(target: HTMLElement, keyboardConfig: object | string): void {
+  registerEventListener(target: HTMLElement, keyboardConfig: object | string, keyboardOptions: object): void {
     this.setKeyboardConfig(keyboardConfig);
+    this.keyboardOptions = keyboardOptions;
 
     target.addEventListener('focusin', this.showKeyboardHandler.bind(this));
     target.addEventListener('focusout', this.closeKeyboardHandler.bind(this));

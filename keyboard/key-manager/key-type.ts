@@ -1,3 +1,5 @@
-export default {
-  
+export enum KeyType {
+  normalKey,
+  actionKey,
+  layoutKey
 };

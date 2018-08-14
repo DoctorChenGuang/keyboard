@@ -1,3 +1,14 @@
-export class KeyManager{
-  
+export class KeyManager {
+  initKey() {
+
+  }
+  initActionKey() {
+
+  }
+  initNormalKey() {
+
+  }
+  initLayoutKey() {
+
+  }
 }

@@ -1,5 +1,5 @@
-const KeyboardPosManager = {};
+export class KeyboardPosManager {
+  constructor() {
 
-export {
-  KeyboardPosManager
+  }
 }
