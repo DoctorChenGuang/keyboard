@@ -50,8 +50,12 @@ export default class KeyboardHandler {
 
     this.keyboardConfig = <object>keyboardConfig;
   }
-  async showKeyboardHandler(event: Event): Promise<void> {
+  async showKeyboardHandler(event: any): Promise<void> {
     let target = event.currentTarget;
+
+    this.setKeyboardConfig(target.dataset["keyboardConfig"]);
+    this.keyboardOptions = target.dataset["keyboardConfig"];
+
     if (this.isDisableCurrentElement(target)) return;
 
     const screenRegion = this.getCurrentElementRegion(target);
@@ -78,13 +82,12 @@ export default class KeyboardHandler {
     // }
     await this.keyboardManager.closeScreenKeyboardAsync();
   }
-  registerEventListener(target: HTMLElement, keyboardConfig: object | string, keyboardOptions: object): void {
-    this.setKeyboardConfig(keyboardConfig);
-    this.keyboardOptions = keyboardOptions;
-
+  registerEventListener(target: HTMLElement, keyboardConfig: any, keyboardOptions: any): void {
+    target.dataset["keyboardConfig"] = keyboardConfig;
+    target.dataset["keyboardOptions"] = keyboardOptions;
     target.addEventListener('focusin', this.showKeyboardHandler.bind(this));
     target.addEventListener('focusout', this.closeKeyboardHandler.bind(this));
-    target.addEventListener('click', this.showKeyboardHandler.bind(this));
+    // target.addEventListener('click', this.showKeyboardHandler.bind(this));
   }
   removeEventListener(target: HTMLElement): void {
     target.removeEventListener('focusin', this.showKeyboardHandler.bind(this));

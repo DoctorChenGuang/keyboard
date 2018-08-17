@@ -8,7 +8,8 @@ Vue.config.productionTip = false;
 //修改键盘默认配置选项
 UserKeyboardOptions.configure(keyboardOptions);
 Vue.use(ScreenKeyboard, {
-  'test': 1
+  test: '1',
+  age: '2'
 });
 
 export default new Vue({

@@ -1,14 +1,9 @@
 import { DefaultLayout } from './default-layout';
 
 export class LayoutFileLoader {
-  public async layoutFileAsync(keyboardType): Promise<object> {
-    let layoutFileName = DefaultLayout[keyboardType];
-
-    if (!layoutFileName) {
-      return {};
-    }
-
-    let layoutFile = await import(`./${layoutFileName}.layout.ts`);
-    return layoutFile;
+  public async layoutFileAsync(layoutName): Promise<any> {
+    const layoutFolderName = 'layout-file';
+    let layoutFile = await import(`../${layoutFolderName}/${layoutName}.layout.ts`);
+    return layoutFile.default;
   }
 }

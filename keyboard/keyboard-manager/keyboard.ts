@@ -3,20 +3,23 @@ import { LayoutManager } from '../layout';
 
 export class Keyboard {
   keyboardName: string = '';
-  keyboardConfig: object = new Object();
+  keyboardOption: any = new Object();
   target: any;
   screenRegion: any;
 
-  constructor(keyboardMergedOption) {
-    this.keyboardName = keyboardMergedOption.type;
-    this.keyboardConfig = keyboardMergedOption;
+  constructor(keyboardOption) {
+    this.keyboardName = keyboardOption.type;
+    this.keyboardOption = keyboardOption;
   }
 
-  public show(target: EventTarget) {
-    const layout = new LayoutManager(this.keyboardName); // 创建键盘的布局
-    const keyboardKeys = layout.getKeys();
-    new KeyManager(keyboardKeys);  // 创建布局需要的按键key
-    
+  public async show(target: EventTarget): Promise<void> {
+    await this.createKeyboard();
+  }
+
+  private async createKeyboard(): Promise<void> {
+    let layoutManager = new LayoutManager(this.keyboardName, this.keyboardOption.layout);
+    await layoutManager.initLayoutAsync();
+    // new KeyManager(keyboardKeys);  // 创建布局需要的按键key
   }
 
   destoryKeyboard() {

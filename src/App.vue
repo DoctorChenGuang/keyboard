@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <input type="text" v-keyboard="'text'">
+    <input type="text" v-keyboard="'phoneNumber'">
+    <input type="text" v-keyboard="'normal'">
   </div>
 </template>
 
