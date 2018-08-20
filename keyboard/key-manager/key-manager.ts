@@ -2,30 +2,30 @@ import { NormalKey } from './normal-key';
 import { ActionKey } from './action-key';
 
 export class KeyManager {
-  key: any = {};
+  keyInfo: any = {};
 
-  constructor(key) {
-    this.key = key;
+  keyList: any = {};
+
+  constructor(currentLayoutContainer, row, col, keyInfo) {
+    this.keyInfo = keyInfo;
+    this.keyList = {
+      keyInfo: keyInfo,
+      row: row,
+      col: col,
+      currentLayoutContainer: currentLayoutContainer
+    };
   }
 
   createKey() {
-    if (!this.isActionKey(this.key.key)) {
-      this.initNormalKey();
+    if (!this._isActionKey(this.keyInfo.key)) {
+      new NormalKey(this.keyList).createNormalKey();
       return;
     }
 
-    this.initActionKey();
+    new ActionKey(this.keyList).createActionKey();
   }
 
-  initNormalKey() {
-    new NormalKey();
-  }
-
-  initActionKey() {
-    new ActionKey();
-  }
-
-  isActionKey(keyName) {
+  private _isActionKey(keyName: string): boolean {
     return /^\{\S+\}$/.test(keyName);
   }
 }

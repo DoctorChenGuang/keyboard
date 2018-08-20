@@ -4,10 +4,13 @@ export default {
   layout: {
     supplyKeyboardType: {//补充键盘布局
       "phoneNumber": phoneNumber,
-      'normal': ['chinese', 'symbol', 'hand-write', {
-        layoutName: 'testLayout',
-        layout: phoneNumber
-      }]
+      // 'normal': ['testLayout']
+      'normal': ['chinese', 'symbol', 'hand-write',
+        {
+          layoutName: 'testLayout',
+          layout: phoneNumber
+        }
+      ]
     },
     supplyKey: { //补充按键
       'keyName': {

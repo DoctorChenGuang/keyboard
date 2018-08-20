@@ -7,7 +7,7 @@
     "lib": [
       "es6",
       "webworker",
-      "dom"
+      "dom",
     ],
     "experimentalDecorators": true, //开启修饰器模式
     "emitDecoratorMetadata": true,

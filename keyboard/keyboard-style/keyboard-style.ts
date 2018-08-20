@@ -1,8 +1,7 @@
 export class KeyboardCss {
-  css: any = {};
   definedCss() {
     //键盘上需要的css样式定义
-    this.css = {
+    return {
       keyboard: 'aui-keyboard',
       keyButton: 'aui-keyboard-button',
       keyText: "aui-keyboard-text",

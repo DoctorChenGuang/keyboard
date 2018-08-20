@@ -22,7 +22,7 @@ export class LayoutManager {
     let flag = false;
     this._isObject(this.layouts, () => {
       flag = true;
-      this.createLayout(this.layouts);
+      this.createLayout(this.layouts, this.keyboardName);
       this.currentLayoutKeys.push(this.keyboardName);
     });
     if (flag) return;
@@ -37,25 +37,41 @@ export class LayoutManager {
 
     for (let layoutItem of this.layouts) {
       this._isString(layoutItem, async () => {
-        this.createLayout(await new LayoutFileLoader().layoutFileAsync(layoutItem));
+        this.createLayout(await new LayoutFileLoader().layoutFileAsync(layoutItem), layoutItem);
 
         this.currentLayoutKeys.push(layoutItem);
       });
 
       this._isObject(layoutItem, () => {
         this._isObject(layoutItem.layout, () => {
-          this.createLayout(layoutItem.layout);
+          this.createLayout(layoutItem.layout, layoutItem.layoutName);
 
           this.currentLayoutKeys.push(layoutItem.layoutName);
         })
 
         this._isString(layoutItem.layout, async () => {
-          this.createLayout(await new LayoutFileLoader().layoutFileAsync(layoutItem.layoutName));
+          const layoutFile = await new LayoutFileLoader().layoutFileAsync(layoutItem.layoutName)
+          this.createLayout(layoutFile, layoutItem.layoutName);
 
           this.currentLayoutKeys.push(layoutItem.layoutName);
         });
       })
     }
+  }
+
+  public createLayout(layout, layoutName) {
+    let keyboardContainer = document.createElement('div');
+    // keyboardContainer.classList.add(this.css.keyboardContainer + this.keyboardType);
+    //创建布局
+    let layouts = new Layout().initLayout(layout, layoutName);
+
+    keyboardContainer.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+    });
+    keyboardContainer.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+    });
+    //???????????????
   }
 
   private _isObject(obj: any, callback: any): void {
@@ -65,7 +81,7 @@ export class LayoutManager {
   }
 
   private _isString(str: string, callback: any): void {
-    if (typeof this.layouts === 'string') {
+    if (typeof str === 'string') {
       callback();
     }
   }
@@ -74,9 +90,5 @@ export class LayoutManager {
     if (!Array.isArray(arr)) {
       callback();
     }
-  }
-
-  public createLayout(layout) {
-    new Layout().initLayout(layout);
   }
 }

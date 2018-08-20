@@ -10,6 +10,7 @@
   "author": "agree",
   "license": "ISC",
   "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
     "@types/jest": "^23.3.1",
     "@types/node": "^10.5.7",
     "@types/webpack": "^4.4.9",
