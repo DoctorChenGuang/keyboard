@@ -2,6 +2,7 @@ import Vue from 'vue';
 import AppComponent from './App.vue';
 import { ScreenKeyboard, UserKeyboardOptions } from '../keyboard/directives';
 import keyboardOptions from '../kb.config';
+import '../keyboard/keyboard-style/keyboard.css';
 
 Vue.config.productionTip = false;
 

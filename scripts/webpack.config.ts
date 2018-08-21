@@ -18,7 +18,7 @@ const config: Configuration = {
     // warningsFilter: /export .* was not found in/,
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.vue', '.vuex', '.json', '.less'],
+    extensions: ['.ts', '.tsx', ".js", '.vue', '.vuex', '.json', '.css', '.less',],
     // alias: aliasName.alias,
     mainFields: ['jsnext:main', 'module', 'main'],
     modules: [
@@ -63,6 +63,10 @@ const config: Configuration = {
           // allowTsInNodeModules: false
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
       // {
       //     test: /\.tsx$/,
       //     loader: 'babel-loader!ts-loader',

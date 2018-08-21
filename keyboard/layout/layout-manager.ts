@@ -1,6 +1,7 @@
 import { DefaultLayout } from './default-layout';
 import { LayoutFileLoader } from './layout-file-loader';
 import { Layout } from './layout';
+import { KeyboardCss } from '../keyboard-style';
 
 export class LayoutManager {
   keyboardName: string = '';
@@ -9,20 +10,42 @@ export class LayoutManager {
 
   currentLayoutKeys: Array<string> = []; // 布局名称
 
+  css: any;
+
   constructor(keyboardName, layouts) {
     this.keyboardName = keyboardName;
     this.layouts = layouts;
+    this.css = new KeyboardCss().definedCss();
   }
 
   static configure() {
     return new DefaultLayout().getDefaultLayout();
   }
 
-  public async initLayoutAsync(): Promise<void> {
+  public async createKeyboard(): Promise<any> {
+    let keyboardContainer = document.createElement('div');
+    //键盘最外层需要设置class，并且可以进行皮肤的切换
+    keyboardContainer.classList.add(this.css.keyboardContainer + this.keyboardName);
+
+    await this.initLayoutAsync(keyboardContainer);
+
+    keyboardContainer.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+    });
+
+    keyboardContainer.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+    });
+
+    document.body.appendChild(keyboardContainer);
+    return keyboardContainer;
+  }
+
+  public async initLayoutAsync(keyboardContainer): Promise<void> {
     let flag = false;
     this._isObject(this.layouts, () => {
       flag = true;
-      this.createLayout(this.layouts, this.keyboardName);
+      this.createLayout(this.layouts, this.keyboardName, keyboardContainer);
       this.currentLayoutKeys.push(this.keyboardName);
     });
     if (flag) return;
@@ -37,21 +60,21 @@ export class LayoutManager {
 
     for (let layoutItem of this.layouts) {
       this._isString(layoutItem, async () => {
-        this.createLayout(await new LayoutFileLoader().layoutFileAsync(layoutItem), layoutItem);
+        this.createLayout(await new LayoutFileLoader().layoutFileAsync(layoutItem), layoutItem, keyboardContainer);
 
         this.currentLayoutKeys.push(layoutItem);
       });
 
       this._isObject(layoutItem, () => {
         this._isObject(layoutItem.layout, () => {
-          this.createLayout(layoutItem.layout, layoutItem.layoutName);
+          this.createLayout(layoutItem.layout, layoutItem.layoutName, keyboardContainer);
 
           this.currentLayoutKeys.push(layoutItem.layoutName);
         })
 
         this._isString(layoutItem.layout, async () => {
           const layoutFile = await new LayoutFileLoader().layoutFileAsync(layoutItem.layoutName)
-          this.createLayout(layoutFile, layoutItem.layoutName);
+          this.createLayout(layoutFile, layoutItem.layoutName, keyboardContainer);
 
           this.currentLayoutKeys.push(layoutItem.layoutName);
         });
@@ -59,19 +82,8 @@ export class LayoutManager {
     }
   }
 
-  public createLayout(layout, layoutName) {
-    let keyboardContainer = document.createElement('div');
-    // keyboardContainer.classList.add(this.css.keyboardContainer + this.keyboardType);
-    //创建布局
-    let layouts = new Layout().initLayout(layout, layoutName);
-
-    keyboardContainer.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-    });
-    keyboardContainer.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-    });
-    //???????????????
+  public createLayout(layout, layoutName, keyboardContainer) {
+    new Layout().initLayout(layout, layoutName, keyboardContainer);
   }
 
   private _isObject(obj: any, callback: any): void {

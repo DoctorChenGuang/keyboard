@@ -1,4 +1,5 @@
 import { KeyboardCss } from '../keyboard-style';
+import { KeyPosManager } from '../keyboard-pos-manager';
 
 export class NormalKey {
   keyList: any = {};
@@ -10,46 +11,60 @@ export class NormalKey {
   }
 
   createNormalKey() {
-    console.log('创建普通按键');
-    this._addCss();
+    let keyBtn = this._createKeyBtn(this._setCss());
+
+    KeyPosManager.computedKeyPosition(this.keyList, keyBtn);
+    
+    return keyBtn;
   }
 
   //应该提取为公共的方法
-  private _addCss() {
+  private _setCss() {
     let keyClass, data: any = {}, keys: any = {};
 
-    let disabledButton = this._isDisabledBtn();//按钮禁用，需要提取出来
+    const disabledButton = this._isDisabledBtn();//按钮禁用，需要提取出来
 
     keys.action = keys.name = data.name = this.keyList.keyInfo.key;
 
-    keyClass = this.css.keyAction + ' ' + this.css.keyPrefix + keys.action;
+    keyClass = data.name === '' ? '' : this.css.keyPrefix + data.name;
     keyClass += (keys.name.length > 2 ? ' ' + this.css.keyWide : '') + ' ' + this.css.buttonDefault + ' ' + this.css.keyButton;
     data.html = `<span class="${this.css.keyText}">${keys.name}</span>`;
 
-    let buttonAttr = {
-      'data-value': keys.name,
-      'data.name': keys.action,
-      'data-pos': this.keyList.col + ' ' + this.keyList.row,
-      'data.action': keys.action,
-      'data.html': data.html,
-      'isDisabled': disabledButton
-    };
-
-    data.$key = this._keyBtn(keyClass, data.html, buttonAttr);
+    return {
+      keyClass: keyClass,
+      keyContent: data.html,
+      buttonAttr: {
+        'data-value': keys.name,
+        'data.name': keys.action,
+        'data-pos': this.keyList.col + ' ' + this.keyList.row,
+        'data.action': keys.action,
+        'data.html': data.html,
+        'isDisabled': disabledButton
+      }
+    }
   }
 
+  //按键是否禁用需要外面进行控制
   private _isDisabledBtn(): boolean {
     return false;
   }
 
-  private _keyBtn(keyClass, dataHtml, buttonAttr) {
-    let numberMargin = 0;
+  //这个应该是动态设置计算出来的。按键的样式。
+  private _createKeyBtn({ keyClass, keyContent, buttonAttr }) {
+    let keyBtn = document.createElement('button');
 
-    let rowspan = this.keyList.keyInfo.rowspan ? this.keyList.keyInfo.rowspan : 1;
+    keyClass = keyClass.split(' ');
 
-    let colspans = key.colspan > 2 ? ((this.kbWidth - this.keyWidth) * 2 * (key.colspan / 2 - 1)) : 0;
-    let rowspans = rowspan > 1 ? (this.kbHeight - this.keyHeight) * 2 * (rowspan - 1) : 0;
-    
+    for (let value of keyClass) {
+      keyBtn.classList.add(value);
+    }
 
+    keyBtn.innerHTML = keyContent;
+
+    for (let item in buttonAttr) {
+      keyBtn.setAttribute(item, buttonAttr[item]);
+    }
+
+    return keyBtn;
   }
 }

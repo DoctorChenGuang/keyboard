@@ -13,13 +13,8 @@ export class Keyboard {
   }
 
   public async show(target: EventTarget): Promise<void> {
-    await this.createKeyboard();
-  }
-
-  private async createKeyboard(): Promise<void> {
     let layoutManager = new LayoutManager(this.keyboardName, this.keyboardOption.layout);
-    await layoutManager.initLayoutAsync();
-    // new KeyManager(keyboardKeys);  // 创建布局需要的按键key
+    return await layoutManager.createKeyboard();
   }
 
   destoryKeyboard() {
@@ -29,10 +24,4 @@ export class Keyboard {
   public close() {
     this.destoryKeyboard();//销毁键盘
   }
-}
-
-export enum ScreenKeyboardPlacement {
-  Bottom,
-  Float,
-  Top
 }

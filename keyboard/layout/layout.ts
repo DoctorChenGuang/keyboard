@@ -10,16 +10,16 @@ export class Layout {
     this.css = new KeyboardCss().definedCss();
   }
 
-  initLayout(layout, layoutName) {
+  initLayout(layout, layoutName, keyboardContainer) {
     this.layoutName = layoutName;
 
     let layoutFlagList = Object.keys(layout);
     for (let set of layoutFlagList) {
-      this.buildLayout(layout[set], set); // set = normal
+      keyboardContainer.appendChild(this.buildLayout(layout[set], set)); // set = normal, single
     }
   }
 
-  buildLayout(layout, set): Element | void {
+  buildLayout(layout, set): any {
     if (!layout.KeyCodes) {
       return console.error('layout file doesnot conform to specification');
     }
@@ -32,8 +32,6 @@ export class Layout {
 
     this.addClass(currentLayoutContainer, set);
 
-    console.log('layout', layout);
-    console.log('currentLayoutContainer', currentLayoutContainer);
     for (let row = 0; row < layout.KeyCodes.length; row++) {
       this.buildRow(currentLayoutContainer, row, layout.KeyCodes[row]);
     }

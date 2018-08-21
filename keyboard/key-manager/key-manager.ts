@@ -16,10 +16,9 @@ export class KeyManager {
     };
   }
 
-  createKey() {
+  createKey(): void {
     if (!this._isActionKey(this.keyInfo.key)) {
-      new NormalKey(this.keyList).createNormalKey();
-      return;
+      this.keyList.currentLayoutContainer.appendChild(new NormalKey(this.keyList).createNormalKey());
     }
 
     new ActionKey(this.keyList).createActionKey();

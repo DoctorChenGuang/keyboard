@@ -1,8 +1,8 @@
 import { Keyboard } from './keyboard';
-import { KeyboardPosManager } from '../keyboard-pos-manager';
 import { KeyboardOptionsManager } from '../options';
 import { KeyboardType } from './keyboard-type';
 import { LayoutManager } from '../layout';
+import { KeyPosManager, KeyboardPosManager } from '../keyboard-pos-manager';
 
 interface KeyboardConfig {//此处有问题？？
   type?: string;
@@ -26,16 +26,17 @@ export default class KeyboardManager {
       return;
     }
 
-    console.log('keyboardMergedOption', keyboardMergedOption);
-    let a = this._getCurrentLayout(keyboardMergedOption, <string>keyboardConfig.type);
-    let keyboardAllOptions = this._mergeAllOptions(keyboardMergedOption, keyboardConfig, keyboardOptions, a);
+    console.log('keyboardMergedOption-合并的配置选项', keyboardMergedOption);
+    console.log('键盘的跟随方式也需要进行合并');
+    KeyPosManager.getKeyInfo(keyboardMergedOption.style.keyOptions);
+    let keyboardAllOptions = this._mergeAllOptions(keyboardMergedOption, keyboardConfig, keyboardOptions, this._getCurrentLayout(keyboardMergedOption, <string>keyboardConfig.type));
 
     this.configure(keyboardAllOptions);
     //弹出键盘
-    await this.keyboard.show(target);
+    const keyboard = await this.keyboard.show(target);
     //键盘位置设置
-    // this.keyboardPosManager = new KeyboardPosManager();
-    // this.keyboardPosManager.setKeyboardPosition(screenRegion);
+    this.keyboardPosManager = new KeyboardPosManager(keyboard);
+    this.keyboardPosManager.setKeyboardPosition(screenRegion);
   }
 
   private _mergeAllOptions(keyboardMergedOption: object, keyboardConfig: any, keyboardOptions: object, currentLayout: object): object {
@@ -56,6 +57,6 @@ export default class KeyboardManager {
 
   public closeScreenKeyboardAsync(): void {
     this.keyboard.close();
-    // this.keyboardPosManager.restoreOriginalPosition();
+    this.keyboardPosManager.restoreOriginalPosition();
   }
 };
