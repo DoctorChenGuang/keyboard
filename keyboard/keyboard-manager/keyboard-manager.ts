@@ -3,7 +3,7 @@ import { KeyboardOptionsManager } from '../options';
 import { KeyboardType } from './keyboard-type';
 import { LayoutManager } from '../layout';
 import { KeyPosManager, KeyboardPosManager } from '../keyboard-pos-manager';
-import { EmulateKeyboardEvent } from '../key-manager';
+import { EmulateKeyboardEvent } from '../key-event';
 
 interface KeyboardConfig {//此处有问题？？
   type?: string;

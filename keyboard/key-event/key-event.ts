@@ -1,6 +1,6 @@
-// import { EmulateKeyboardEvent } from './emulate-key-event';
 import { KeyboardCss } from '../keyboard-style';
-import { KeyAction } from './key-action';
+// import { KeyAction } from './key-action';
+import {KeyActionManager} from './key-action-manager';
 
 export class KeyEvent {
   keyList: any;
@@ -53,20 +53,15 @@ export class KeyEvent {
     //此处需要区分普通按键以及功能按键。
     let action = this.isActionKey ? this._getKeyAction() : "";
     let keyName = this.isActionKey ? action : this.keyList.keyInfo.key;
-
+    let layoutName = this.keyList.layoutName;
     // let keyActionFn: Function;
     // if (key.fn) {/如果是用户补充的功能按键行为
     //   return;
     // }
 
-    new KeyAction().getKeyAction(keyName, action, this.keyBtn);
+    // new KeyAction().getKeyAction(keyName, action, this.keyBtn);
+    new KeyActionManager({keyName, action, layoutName}).run();
   }
-
-  // private _isChineseKey() {
-  //   if (/chinese/.test(this.keyList.layoutName) && /[a-zA-Z]/.test(this.action)) return true;
-
-  //   return false;
-  // }
 
   private _touchStyle(cb) {
     if (this.action !== 'handwriting-left' && this.action !== 'handwriting-right') {

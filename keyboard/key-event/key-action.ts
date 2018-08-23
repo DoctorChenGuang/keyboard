@@ -68,26 +68,26 @@ export class KeyAction {
 
   private _choiceCandidate() { }
 
-  private _normalAction(action) {
-    //此处按键模拟事件触发需要进行测试
-    this.emulateKeyboardEvent.emulateKeyEvent(action, () => {
-      //普通按键需要执行的操作
-      let text = action;
-      this.emulateKeyboardEvent.createKeyboardBeforeinput(action); //beforeinput
-      let cancelledTextinput = this.emulateKeyboardEvent.createTextInputEvent(action); // textInput
+  // private _normalAction(action) {
+  //   //此处按键模拟事件触发需要进行测试
+  //   this.emulateKeyboardEvent.emulateKeyEvent(action, () => {
+  //     //普通按键需要执行的操作
+  //     let text = action;
+  //     this.emulateKeyboardEvent.createKeyboardBeforeinput(action); //beforeinput
+  //     let cancelledTextinput = this.emulateKeyboardEvent.createTextInputEvent(action); // textInput
 
-      if (!cancelledTextinput) return;
-      if (this._isMaxLength()) return;
+  //     if (!cancelledTextinput) return;
+  //     if (this._isMaxLength()) return;
 
-      this.insertText(text);
+  //     this.insertText(text);
 
-      this.emulateKeyboardEvent.createKeyboardInput(action); //input
-    });
-  }
+  //     this.emulateKeyboardEvent.createKeyboardInput(action); //input
+  //   });
+  // }
 
-  public insertText(text) {
-    EmulateKeyboardEvent.currentElement.setRangeText(text, EmulateKeyboardEvent.currentElement.selectionStart, EmulateKeyboardEvent.currentElement.selectionEnd, 'end');
-  }
+  // public insertText(text) {
+  //   EmulateKeyboardEvent.currentElement.setRangeText(text, EmulateKeyboardEvent.currentElement.selectionStart, EmulateKeyboardEvent.currentElement.selectionEnd, 'end');
+  // }
 
   public cancelText(): void {
     this.createCancelTextEvent('Backspace');
@@ -104,22 +104,22 @@ export class KeyAction {
     });
   }
 
-  private _isMaxLength() {
-    if (this._isChineseKey()) return false;
+  // private _isMaxLength() {
+  //   if (this._isChineseKey()) return false;
 
-    const currentElementMaxlength = EmulateKeyboardEvent.currentElement.getAttribute('maxlength');
+  //   const currentElementMaxlength = EmulateKeyboardEvent.currentElement.getAttribute('maxlength');
 
-    if (!currentElementMaxlength) return false;
+  //   if (!currentElementMaxlength) return false;
 
-    if (EmulateKeyboardEvent.currentElement.value.length < currentElementMaxlength) return false;
+  //   if (EmulateKeyboardEvent.currentElement.value.length < currentElementMaxlength) return false;
 
-    return true;
-  }
+  //   return true;
+  // }
 
 
-  private _isChineseKey() {
-    if (/chinese/.test(this.keyList.layoutName) && /[a-zA-Z]/.test(this.action)) return true;
+  // private _isChineseKey() {
+  //   if (/chinese/.test(this.keyList.layoutName) && /[a-zA-Z]/.test(this.action)) return true;
 
-    return false;
-  }
+  //   return false;
+  // }
 }
