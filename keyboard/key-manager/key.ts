@@ -1,6 +1,6 @@
 import { KeyboardCss } from '../keyboard-style';
 import { KeyPosManager } from '../keyboard-pos-manager';
-import { KeyEvent } from './key-event';
+import { KeyEvent } from '../key-event';
 import { KeyNameManager } from './key-name-manager';
 
 export class Key {
@@ -86,7 +86,7 @@ export class Key {
   }
 
   private _createKeyEvent(keyBtn): void {
-    new KeyEvent(this.keyList, keyBtn, false).addKeyEvent();
+    new KeyEvent(this.keyList, keyBtn, this._isActionKey).addKeyEvent();
   }
 
   //此方法需要抽取出来,抽象化

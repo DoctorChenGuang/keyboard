@@ -86,21 +86,25 @@ export class EmulateKeyboardEvent {
     return cancelled;
   }
 
-  //创建键盘事件
-  createKBEvent(action) {
+  public emulateKeyEvent(action, cb): void {
     let cancelledDown, cancelledKeypress;
+
     cancelledDown = this.createKDEvent(action); //keydown
-    if (cancelledDown) {
-      cancelledKeypress = this.createKeypressEvent(action); //keypress
-      if (cancelledKeypress) {
-        this.createKeyboardBeforeinput(action); //beforeinput
-        if (EmulateKeyboardEvent.currentElement.value.length > 0) {
-          this.bkspTxt(); //删除字符
-          this.createKeyboardInput(action); //input
-        }
-      }
+
+    if (!cancelledDown) {
+      this.createKUEvent(action); //keyup
+      return;
     }
+
+    cancelledKeypress = this.createKeypressEvent(action); //keypress
+
+    if (!cancelledKeypress) {
+      this.createKUEvent(action); //keyup
+      return;
+    }
+
+    cb(); // 回调函数不会return掉当前函数的
+
     this.createKUEvent(action); //keyup
   }
-
 }

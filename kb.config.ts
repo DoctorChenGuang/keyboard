@@ -17,7 +17,7 @@ export default {
       'test1': {
         keyName: '',
         action: '',
-        value: '',
+        value: '测试1',
         event: "",
         type: "normal"
       },
@@ -25,7 +25,7 @@ export default {
       'test2': {
         keyName: '',
         action: '',
-        value: '',
+        value: '测试2',
         event: "",
         type: "action",
         //如果没有fn，就报错，此属性必须要有

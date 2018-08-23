@@ -1,5 +1,3 @@
-// import { NormalKey } from './normal-key';
-// import { ActionKey } from './action-key';
 import { Key } from './key';
 
 export class KeyManager {
@@ -21,12 +19,6 @@ export class KeyManager {
   createKey(): void {
     const _isActionKey = this._isActionKey(this.keyInfo.key);
     this._appendChild(new Key(this.keyList, _isActionKey).createNormalKey());
-    // if (!this._isActionKey(this.keyInfo.key)) {
-    //   this._appendChild(new NormalKey(this.keyList).createNormalKey());
-    //   return;
-    // }
-
-    // this._appendChild(new ActionKey(this.keyList).createActionKey());
   }
 
   private _appendChild(child) {

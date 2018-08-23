@@ -12,12 +12,16 @@ enum KeyName {
   "toggle" = "收起",
   "single" = "全角",
   "candidate" = "",
+  "handwriting-left" = "",
+  "handwriting-right" = ""
 };
 
+//这个应该是可以配置的，如果用户想更换的话？？？
+//注册指令时需要进行初始化配置
 export class KeyNameManager {
+  //但是value的值是不可以重复的
   register(keyName) {
-    console.log("keyName", keyName);
-    console.log("keyName", KeyName[keyName]);
+    if (KeyName[keyName] === undefined) return keyName;
     return KeyName[keyName];
   }
 }
