@@ -3,6 +3,7 @@ import { KeyboardOptionsManager } from '../options';
 import { KeyboardType } from './keyboard-type';
 import { LayoutManager } from '../layout';
 import { KeyPosManager, KeyboardPosManager } from '../keyboard-pos-manager';
+import { EmulateKeyboardEvent } from '../key-manager';
 
 interface KeyboardConfig {//此处有问题？？
   type?: string;
@@ -32,6 +33,8 @@ export default class KeyboardManager {
     let keyboardAllOptions = this._mergeAllOptions(keyboardMergedOption, keyboardConfig, keyboardOptions, this._getCurrentLayout(keyboardMergedOption, <string>keyboardConfig.type));
 
     this.configure(keyboardAllOptions);
+    //模拟发送键盘事件时，需要获得当前的input元素
+    EmulateKeyboardEvent.setCurrentElement(target);
     //弹出键盘
     const keyboard = await this.keyboard.show(target);
     //键盘位置设置

@@ -83,7 +83,7 @@ export class LayoutManager {
   }
 
   public createLayout(layout, layoutName, keyboardContainer) {
-    new Layout().initLayout(layout, layoutName, keyboardContainer);
+    new Layout().initLayout(layout, layoutName, keyboardContainer, this.keyboardName);
   }
 
   private _isObject(obj: any, callback: any): void {

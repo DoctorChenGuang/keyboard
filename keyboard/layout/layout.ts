@@ -4,14 +4,16 @@ import { KeyboardCss } from "../keyboard-style";
 export class Layout {
   css: any = {};
   layoutName: string = '';
+  keyboardName: any;
   // currentLayoutContainer: any = null;
 
   constructor() {
     this.css = new KeyboardCss().definedCss();
   }
 
-  initLayout(layout, layoutName, keyboardContainer) {
+  initLayout(layout, layoutName, keyboardContainer, keyboardName) {
     this.layoutName = layoutName;
+    this.keyboardName = keyboardName;
 
     let layoutFlagList = Object.keys(layout);
     for (let set of layoutFlagList) {
@@ -46,7 +48,7 @@ export class Layout {
   }
 
   buildKey(currentLayoutContainer, row, col, keyInfo) {
-    new KeyManager(currentLayoutContainer, row, col, keyInfo).createKey();
+    new KeyManager(currentLayoutContainer, row, col, keyInfo, this.layoutName).createKey();
   }
 
   addClass(currentLayoutContainer, set): void {

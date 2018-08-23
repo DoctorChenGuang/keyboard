@@ -1,20 +1,29 @@
 import { KeyboardCss } from '../keyboard-style';
 import { KeyPosManager } from '../keyboard-pos-manager';
+import { KeyEvent } from './key-event';
+import { KeyNameManager } from './key-name-manager';
 
-export class NormalKey {
+export class Key {
   keyList: any = {};
   css: any = {};
+  _isActionKey: boolean;
 
-  constructor(keyList) {
+  constructor(keyList, _isActionKey) {
     this.keyList = keyList;
     this.css = new KeyboardCss().definedCss();
+    this._isActionKey = _isActionKey;
   }
 
   createNormalKey() {
     let keyBtn = this._createKeyBtn(this._setCss());
 
     KeyPosManager.computedKeyPosition(this.keyList, keyBtn);
-    
+
+    if (!this._isDisabledBtn()) {
+      //不是禁用的按键则发送键盘事件
+      this._createKeyEvent(keyBtn);
+    }
+
     return keyBtn;
   }
 
@@ -24,19 +33,27 @@ export class NormalKey {
 
     const disabledButton = this._isDisabledBtn();//按钮禁用，需要提取出来
 
-    keys.action = keys.name = data.name = this.keyList.keyInfo.key;
+    keys.action = keys.name = this._isActionKey ? this._getAction() : this.keyList.keyInfo.key;
+    keys.value = this._processName(keys.name);
 
-    keyClass = data.name === '' ? '' : this.css.keyPrefix + data.name;
+    data.name = this._isActionKey ? keys.action : keys.name;
+
+    if (this._isActionKey) {
+      keyClass = this.css.keyAction + ' ' + this.css.keyPrefix + keys.action;
+    } else {
+      keyClass = data.name === '' ? '' : this.css.keyPrefix + data.name;
+    }
+
     keyClass += (keys.name.length > 2 ? ' ' + this.css.keyWide : '') + ' ' + this.css.buttonDefault + ' ' + this.css.keyButton;
-    data.html = `<span class="${this.css.keyText}">${keys.name}</span>`;
+    data.html = `<span class="${this.css.keyText}">${this._isActionKey ? keys.value : keys.name}</span>`;
 
     return {
       keyClass: keyClass,
       keyContent: data.html,
       buttonAttr: {
-        'data-value': keys.name,
+        'data-value': keys.value,
         'data.name': keys.action,
-        'data-pos': this.keyList.col + ' ' + this.keyList.row,
+        'data-pos': this.keyList.keyInfo.col + ' ' + this.keyList.keyInfo.row,
         'data.action': keys.action,
         'data.html': data.html,
         'isDisabled': disabledButton
@@ -66,5 +83,19 @@ export class NormalKey {
     }
 
     return keyBtn;
+  }
+
+  private _createKeyEvent(keyBtn): void {
+    new KeyEvent(this.keyList, keyBtn, false).addKeyEvent();
+  }
+
+  //此方法需要抽取出来,抽象化
+  private _processName(keyName) {
+    return new KeyNameManager().register(keyName);
+  }
+
+  private _getAction() {
+    const action = this.keyList.keyInfo.key.match(/^\{(\S+)\}$/)[1];
+    return action.split(':')[0];
   }
 }
