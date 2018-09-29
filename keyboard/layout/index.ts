@@ -1,5 +1,9 @@
-import { LayoutManager } from "./layout-manager";
+import { Layout } from './layout';
+import { DefaultLayout } from './default-layout';
+import { LayoutFactory } from './layout-factory';
 
 export {
-  LayoutManager
+  Layout,
+  DefaultLayout,
+  LayoutFactory
 }

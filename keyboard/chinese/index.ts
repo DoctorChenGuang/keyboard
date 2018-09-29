@@ -1,5 +1,5 @@
-import { Chinese } from './chinese';
+import { ChineseLayout } from './chinese-layout';
 
 export {
-  Chinese
+  ChineseLayout
 }

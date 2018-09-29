@@ -1,15 +1,16 @@
 export class DefaultLayout {
-  public getDefaultLayout() {
+  public static getDefaultLayout() {
     return {
       none: '',
       number: 'number',
-      text: ['chinese', 'symbol', 'hand-write', 'qwerty'],
-      normal: ['chinese', 'symbol', 'hand-write', 'qwerty'],
+      text: ['chinese', 'symbol', 'hand-write', 'english'],
+      normal: ['chinese', 'symbol', 'hand-write', 'english'],
       chineseId: 'chinese-id',
-      address: ['chinese', 'symbol', 'hand-write', 'qwerty', 'address'],
+      //不是所有的布局都会所有布局的切换按键
+      address: ['chinese', 'symbol', 'hand-write', 'english', 'address'],
       // phoneNumber: 'phone-number',
       numberWithoutPoint: 'number-without-point',
       numberMinus: 'number-minus'
     }
   }
-}
+};

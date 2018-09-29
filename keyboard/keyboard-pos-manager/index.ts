@@ -1,2 +1,6 @@
-export { KeyboardPosManager } from './keyboard-pos-manager';
-export { KeyPosManager } from './key-pos-manager';
+import { KeyboardPlacement, KeyboardDefaultPlacement } from './keyboard-placement';
+
+export {
+  KeyboardPlacement,
+  KeyboardDefaultPlacement
+}

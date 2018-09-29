@@ -1,11 +1,19 @@
 export enum KeyboardType {
-  none = 0,
-  number = 1,
-  text = 2,
-  normal = 2,
-  chineseId = 3,
-  address = 4,
-  phoneNumber = 5,
-  numberWithoutPoint = 6,
-  numberMinus = 7
+  none = "none",
+
+  number = "number",
+
+  text = "text",
+
+  normal = "normal",
+
+  chineseId = "chineseId",
+
+  address = "address",
+
+  phoneNumber = "phoneNumber",
+
+  numberWithoutPoint = "numberWithoutPoint",
+
+  numberMinus = "numberMinus"
 };

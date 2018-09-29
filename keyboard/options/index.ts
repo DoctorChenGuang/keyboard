@@ -1,7 +1,5 @@
-import { KeyboardOptionsManager } from './options-manager';
-import { UserKeyboardOptions } from './user-options';
+import { Options } from './options';
 
 export {
-  KeyboardOptionsManager,
-  UserKeyboardOptions
-}
+  Options
+};

@@ -18,7 +18,7 @@
       false
     ],
     "no-implicit-dependencies": false,
-    "no-unnecessary-initializer": false,
+    // "no-unnecessary-initializer": true, // 不用必须初始化
     "unified-signatures": false,
     "max-line-length": [
       150
@@ -55,5 +55,11 @@
       false
     ],
   },
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "globals": {
+    "$": true,
+    "HanziLookup": true,
+    "IME": true,
+    "cordova": true
+  }
 }
