@@ -15,6 +15,7 @@ interface KeyCss {
   keyButton: string;
   keyActive: string;
   isDisabled: string;
+  setKey: string;
 }
 
 export abstract class KeyBase {
@@ -33,7 +34,8 @@ export abstract class KeyBase {
     keyWide: 'aui-keyboard-widekey',
     keyButton: 'aui-keyboard-button',
     keyActive: 'aui-keyboard-key-active',
-    isDisabled: "aui-keyboard-key-disabled"
+    isDisabled: "aui-keyboard-key-disabled",
+    setKey: 'aui-keyboard-set-key',
   }
 
   public keyInfo: KeyInfo;
@@ -62,6 +64,7 @@ export abstract class KeyBase {
   public keyName: string;
   public isComposing: boolean;
   public keyActionName: string;
+  public setInitState: string;
 
   //此处需要可配置????
   public inkRecognitionHandlerType: string = 'web';//这个配置项应该是在手写布局里面配置的
@@ -92,6 +95,7 @@ export abstract class KeyBase {
     this.keyName = keyConfig.keyName;
     this.isComposing = keyConfig.isComposing;
     this.keyActionName = keyConfig.keyActionName;
+    this.setInitState = keyConfig.setInitState;
   }
 
   public initKeyBtn(_this: Key): void {
@@ -143,7 +147,9 @@ export abstract class KeyBase {
       keyClass = data.name === '' ? '' : this.css.keyPrefix + data.name;
     }
 
-    disabledButton && (keyClass += this.css.isDisabled);
+    this.shiftKey && (keyClass += " " + this.css.setKey + ' ' + this.css.setKey + this.ownerSetName);
+
+    disabledButton && (keyClass += " " + this.css.isDisabled);
 
     keyClass += (keys.name.length > 2 ? ' ' + this.css.keyWide : '') + ' ' + this.css.buttonDefault + ' ' + this.css.keyButton;
     data.html = !this._isCanvasBtn() ? `<span class="${this.css.keyText}">${this.isActionKey ? keys.value : keys.name}</span>` : "";

@@ -137,7 +137,7 @@ const Symbolization = {
       ]
     ]
   },
-  'InitSet': 'Double'
+  'InitSet': 'Single'
 };
 
 export default Symbolization;

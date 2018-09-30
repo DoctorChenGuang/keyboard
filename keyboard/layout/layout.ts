@@ -64,6 +64,8 @@ export abstract class Layout {
       }
     }
 
+    this.hasShiftKey && StateMachine.initState('set', this.setInitState, this.layoutName);
+
     return currentLayoutContainer;
   }
 
@@ -89,11 +91,7 @@ export abstract class Layout {
       this._buildRow(setContainer, keysList[row], setName);
     }
 
-    if (this.hasShiftKey) {
-      console.log('setInitState', this.layoutName + this.setInitState);
-      StateMachine.register('set', this.layoutName + setName, setContainer);
-      StateMachine.initState('set', this.layoutName + this.setInitState, this.layoutName);
-    }
+    this.hasShiftKey && StateMachine.register('set', setContainer, this.layoutName, setName);
 
     return setContainer;
   }
@@ -105,7 +103,7 @@ export abstract class Layout {
   }
 
   public _buildKey(currentLayoutContainer: HTMLDivElement, key: KeyInfo, setName: string): void {
-    let keyConfig = initKeyConfig(key, this.layoutName, this.ownerKeyboardName, setName, this.disabledLayoutKeyList);
+    let keyConfig = initKeyConfig(key, this.layoutName, this.ownerKeyboardName, setName, this.disabledLayoutKeyList, this.setInitState);
 
     let keyBtn = Key.getKeyBtn(key, this.currentInputElement, keyConfig);
 

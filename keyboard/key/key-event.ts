@@ -37,12 +37,13 @@ export class KeyEvent {
   }
 
   //这个函数应该持续优化
-  public emulateKeyboardEvent(cb: (action: string, key: Key, currentElement: HTMLInputElement, setName: string, layoutName: string) => void): void {
+  public emulateKeyboardEvent(cb: (action: string, key: Key, currentElement: HTMLInputElement, setName: string, layoutName: string, setInitState: string) => void): void {
     let key = this.key;
     let action = this.key.action;
     let currentElement = this.key.currentElement;
     let setName = this.key.ownerSetName;
     let layoutName = this.key.ownerLayoutName;
+    let setInitState = this.key.setInitState;
 
     let eventArgs = {
       action: this.key.action,
@@ -60,7 +61,7 @@ export class KeyEvent {
 
     keyboardEvent.emulateKeyboardEvent(eventArgs, key, () => {
       keyboardEvent.emulateInputEvent(eventArgs, key, () => {
-        cb(action, key, currentElement, setName, layoutName);
+        cb(action, key, currentElement, setName, layoutName, setInitState);
       });
     });
   }

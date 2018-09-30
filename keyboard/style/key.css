@@ -1,20 +1,40 @@
+/* disabled key color */
 .aui-keyboard-key-disabled{
   color: #DCDDDD;
 }
 
-/* 手写候选词的样式定义 */
+/* hand-write: candidate */
 .aui-keyboard-candidate{
   border: 1px solid #B5B6B6;
   padding: 0;
 }
 
-.aui-keyboard-handwriting-right{
+.aui-keyboard-handwriting-right, .aui-keyboard-handwriting-left{
   border: 0;
   padding: 0;
-
 }
 
-.aui-keyboard-handwriting-left{
-  border: 0;
-  padding: 0
+/* layout key */
+[name*='english']  button.aui-keyboard-english, [name*='chinese'] button.aui-keyboard-chinese,[name*='symbol'] button.aui-keyboard-symbol, [name*='hand-write'] button.aui-keyboard-hand-write{
+  background-color: Orange;
+}
+
+/* layout key text color */
+[name*='english']  button.aui-keyboard-english span, [name*='chinese'] button.aui-keyboard-chinese span,[name*='symbol'] button.aui-keyboard-symbol span, [name*='hand-write'] button.aui-keyboard-hand-write span{
+  color:black;
+}
+
+/* set key */
+.aui-keyboard-set-keyCapitalUpperCase, .aui-keyboard-set-keyDouble{
+  background-color: Orange;
+}
+
+/* set key text */
+.aui-keyboard-set-keyCapitalUpperCase span, .aui-keyboard-set-keyDouble span{
+  color:black;
+}
+
+/* key click */
+.aui-keyboard button:not([class*='aui-keyboard-handwriting'][isdisabled='true']):active {
+  background-color:Orange;
 }

@@ -1,4 +1,5 @@
 import { KeyEventListenerType } from "../key/event-listener/event-listener-type";
+import { KeyInfo } from "../interface";
 
 interface KeyCodeAndKey {
   code: string;
@@ -66,8 +67,14 @@ export function isCtrlKey(keyName: string): boolean {
   return keyName === 'ctrl';
 }
 
-export function isShiftKey(keyName: string): boolean {
-  return keyName === 'shift';
+export function isShiftKey(keyInfo: KeyInfo): boolean {
+  let shiftKey = false;
+
+  getKeyInfo(keyInfo.key, (keyArr) => {
+    shiftKey = keyArr[1] ? keyArr[1].indexOf(KeyKeywords.Shift) > -1 : false;
+  });
+
+  return shiftKey;
 }
 
 export function isMetaKey(keyName: string): boolean {

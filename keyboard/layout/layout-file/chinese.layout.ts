@@ -1,5 +1,5 @@
 const Chinese = {
-  'CapitalUpperCase': {
+  'CapitalLowerCase': {
     'row': '4',
     'col': '16',
     'KeyList': [
@@ -38,7 +38,7 @@ const Chinese = {
       ],
       [
         { 'key': '{hand-write:LayoutKey}', 'row': '2', 'col': '0', 'colspan': '2' },
-        { 'key': '{capital:Shift=CapitalLowerCase}', 'row': '2', 'col': '2', 'colspan': '2' },
+        { 'key': '{capital:Shift=CapitalUpperCase}', 'row': '2', 'col': '2', 'colspan': '2' },
         { 'key': 'z', 'row': '2', 'col': '4', 'colspan': '2' },
         { 'key': 'x', 'row': '2', 'col': '6', 'colspan': '2' },
         { 'key': 'c', 'row': '2', 'col': '8', 'colspan': '2' },
@@ -67,7 +67,7 @@ const Chinese = {
       ]
     ]
   },
-  'CapitalLowerCase': {
+  'CapitalUpperCase': {
     'row': '4',
     'col': '16',
     'KeyList': [
@@ -106,7 +106,7 @@ const Chinese = {
       ],
       [
         { 'key': '{hand-write:LayoutKey}', 'row': '2', 'col': '0', 'colspan': '2' },
-        { 'key': '{capital:Shift=CapitalUpperCase}', 'row': '2', 'col': '2', 'colspan': '2' },
+        { 'key': '{capital:Shift=CapitalLowerCase}', 'row': '2', 'col': '2', 'colspan': '2' },
         { 'key': 'Z', 'row': '2', 'col': '4', 'colspan': '2' },
         { 'key': 'X', 'row': '2', 'col': '6', 'colspan': '2' },
         { 'key': 'C', 'row': '2', 'col': '8', 'colspan': '2' },
@@ -135,6 +135,6 @@ const Chinese = {
       ]
     ]
   },
-  'InitSet': "CapitalUpperCase"
+  'InitSet': "CapitalLowerCase"
 };
 export default Chinese;

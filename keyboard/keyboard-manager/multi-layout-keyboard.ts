@@ -1,6 +1,7 @@
 import { Keyboard } from './keyboard';
 import { LayoutOptions } from '../interface';
 import { isPlainObject } from '../util/util';
+import { StateMachine } from '../key';
 
 interface KeyboardConfig {
   [propName: string]: any;
@@ -13,7 +14,7 @@ enum LayoutName {
   '英文' = 'english'
 };
 
-//应该是hi独有的特性，保证属性的修饰符是正确的
+//应该是独有的特性，保证属性的修饰符是正确的
 export class MultiLayoutKeyboard extends Keyboard {
   public layoutWidth: string = '';
   public layoutHeight!: string;
@@ -52,6 +53,8 @@ export class MultiLayoutKeyboard extends Keyboard {
         disabledLayoutKeyList: this.disabledLayoutKeyList
       }));
     });
+
+    StateMachine.initState('layout', this.layoutInitState);
 
     this.parentDom.appendChild(this.keyboardContiner);
   }

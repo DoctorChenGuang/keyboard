@@ -34,6 +34,7 @@ export interface KeyConfig {
   ownerSetName: string;
   isComposing: boolean;
   keyActionName: string;
+  setInitState: string;
 }
 
 export interface LayoutConfig {

@@ -83,6 +83,6 @@ const phoneNumber = {
       ]
     ]
   },
-  'InitSet': 'test1'
+  'InitSet': 'test2'
 };
 export default phoneNumber;

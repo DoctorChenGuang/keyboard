@@ -81,8 +81,7 @@ export abstract class Keyboard {
     let layoutContainer = LayoutFactory.layoutGenerator(layoutConfig);
 
     if (layoutContainer && layoutOptions.hasLayoutKey && layoutOptions.layoutInitState) {
-      StateMachine.register('layout', layoutOptions.layoutName, layoutContainer);
-      StateMachine.initState('layout', layoutOptions.layoutInitState);
+      StateMachine.register('layout', layoutContainer, layoutOptions.layoutName);
     }
 
     if (!layoutContainer) throw new Error('keyboard: layout is create failed');

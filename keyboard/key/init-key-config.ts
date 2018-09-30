@@ -7,7 +7,7 @@ import { getKeyActionType } from './key-action/key-action-type';
 import { KeyConfig } from '../interface';
 
 //这个函数需要优化
-export function initKeyConfig(keyInfo: KeyInfo, ownerLayoutName: string, keyboardName: string, ownerSetName: string, disabledLayoutKeyList: Set<string>): any {
+export function initKeyConfig(keyInfo: KeyInfo, ownerLayoutName: string, keyboardName: string, ownerSetName: string, disabledLayoutKeyList: Set<string>, setInitState: string): any {
   let keyName = getKeyName(keyInfo.key);
 
   let keyCodeAndKey = getKeyCodeType(keyName, ownerLayoutName);
@@ -27,7 +27,7 @@ export function initKeyConfig(keyInfo: KeyInfo, ownerLayoutName: string, keyboar
     code: keyCodeAndKey.code,
     keyCode: keyCodeAndKey.keyCode,
     ctrlKey: isCtrlKey(keyName),
-    shiftKey: isShiftKey(keyName),
+    shiftKey: isShiftKey(keyInfo),
     metaKey: isMetaKey(keyName),
     altKey: isAltKey(keyName),
     keyTxt: getKeyTxt(keyInfo.key),
@@ -35,7 +35,8 @@ export function initKeyConfig(keyInfo: KeyInfo, ownerLayoutName: string, keyboar
     ownerSetName: ownerSetName,
     isDisabled: isDisabled(keyName, disabledLayoutKeyList), //禁用的按键应该是配置出来的,
     isComposing: false, //是否为中文输入状态需要配置
-    keyActionName: getKeyActionName(keyName)
+    keyActionName: getKeyActionName(keyName),
+    setInitState: setInitState
   }
 
   return keyConfig;

@@ -35,6 +35,7 @@ export class Canvas {
 
       this.canvasManager.clearNotPaintCanvas();
 
+      //此功能应该设置是否打开
       this.canvasManager.getDefaultChars();
     }
 
