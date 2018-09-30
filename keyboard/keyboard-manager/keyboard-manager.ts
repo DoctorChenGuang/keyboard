@@ -3,11 +3,6 @@ import { SingleLayoutKeyboard } from './single-layout-keyboard';
 import { Options } from '../options';
 import { KeyboardType } from './keyboard-type';
 import { DefaultLayout } from '../layout';
-import { NumberKeyboard } from '../number-keyboard';
-import { NumberWithoutPointKeybaord } from '../number-without-point';
-import { PhoneNumberKeyboard } from '../phone-number-keyboard';
-import { ChineseIdKeyboard } from '../chinese-id-keyboard';
-import { NumberMinusKeyboard } from '../number-minus-keyboard';
 
 interface UserOptions {
   [propName: string]: any;
@@ -67,26 +62,6 @@ export class KeyboardManager {
         keyboard = new SingleLayoutKeyboard(currentInputElement, keyboardOption);
         break;
 
-      // case KeyboardType.number:
-      //   keyboard = new NumberKeyboard(currentInputElement, keyboardOption);
-      //   break;
-
-      // case KeyboardType.numberWithoutPoint:
-      //   keyboard = new NumberWithoutPointKeybaord(currentInputElement, keyboardOption);
-      //   break;
-
-      // case KeyboardType.phoneNumber:
-      //   keyboard = new PhoneNumberKeyboard(currentInputElement, keyboardOption);
-      //   break;
-
-      // case KeyboardType.chineseId:
-      //   keyboard = new ChineseIdKeyboard(currentInputElement, keyboardOption);
-      //   break;
-
-      // case KeyboardType.numberMinus:
-      //   keyboard = new NumberMinusKeyboard(currentInputElement, keyboardOption);
-      //   break;
-
       default:
         keyboard = this._isMultiLayoutKeyboard(keyboardOption) ? new MultiLayoutKeyboard(currentInputElement, keyboardOption) : new SingleLayoutKeyboard(currentInputElement, keyboardOption);
         break;
@@ -104,6 +79,7 @@ export class KeyboardManager {
     return Array.isArray(layoutList) && layoutList.length > 1 ? true : false;
   }
 
+  //合并配置项应该全部提取出来，函数职责要单一
   private _getOption(keyboardConfig, keyboardOptions): any {
     const keyboardMergedOption = Options.getOptions(KeyboardManager.userOptions);
 
@@ -131,6 +107,7 @@ export class KeyboardManager {
     return mergeAllOptions;
   }
 
+  //对于选项的提取，应该放在合并的函数中
   private _getCurrentLayout(keyboardMergedOption: any, keyboardConfigType: string): any {
     let layoutInfo = keyboardMergedOption.layout.supplyKeyboardType[keyboardConfigType] ? keyboardMergedOption.layout.supplyKeyboardType[keyboardConfigType] : DefaultLayout.getDefaultLayout()[keyboardConfigType];
     return { 'layoutList': layoutInfo };

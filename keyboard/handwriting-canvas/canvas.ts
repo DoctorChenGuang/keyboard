@@ -44,5 +44,13 @@ export class Canvas {
     let matchResult = await InkRecognitionHandler.getMatchResult(this.canvasManager.inkRecognitionHandlerType, analyzedChar, this.analyzedCharCount, this.canvasManager.matcherMMAH);
 
     this.canvasManager.resultList = matchResult;
+
+    this.showCandidate(matchResult);
+  }
+
+  public showCandidate(matchResult: Array<string>): void {
+    console.log('显示候选词', matchResult);
+    console.log('候选词还需要智能提示');
+    //如果候选词槽是空的，则点击应该是没有反应的
   }
 };

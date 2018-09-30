@@ -18,6 +18,7 @@ interface KeyCss {
   setKey: string;
 }
 
+//对于key，还应该继续拆开
 export abstract class KeyBase {
   public keyContainerWidth: number = 38.75;
   public keyContainerHeight: number = 38.75;
@@ -122,7 +123,7 @@ export abstract class KeyBase {
 
     this._keyBtnElement.innerHTML = keyContent;
 
-    this._isCanvasBtn() && this._createCanvas();
+    this._isCanvasBtn() && this._createCanvas(); // 这个应该有更好的处理方式
 
     for (let item in buttonAttr) {
       this._keyBtnElement.setAttribute(item, buttonAttr[item]);

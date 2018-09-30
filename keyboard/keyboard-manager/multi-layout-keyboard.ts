@@ -63,6 +63,7 @@ export class MultiLayoutKeyboard extends Keyboard {
 
   }
 
+  //属于对配置项的提取，应该在之前就已经做好，直接使用，配置项的设置全部抽取出来
   //这个函数和下面的函数需要合并，优化函数功能
   public setDisbaledLayoutKeyList(): void {
     [...this.layouts.keys()].forEach((layoutName) => {
