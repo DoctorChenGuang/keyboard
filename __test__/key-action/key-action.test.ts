@@ -8,7 +8,7 @@ import { KeyActionType } from '../../keyboard/key/key-action-type';
 
 describe('KeyAction test', () => {
   let currentElement = document.createElement('input');
-  let keyBtn = Key.getKeyBtn({ 'key': 'q', 'row': '0', 'col': '2', 'colspan': '2' }, false, false, true, KeyActionType.InsertTextAction, 'english', currentElement);
+  let keyBtn = Key.create({ 'key': 'q', 'row': '0', 'col': '2', 'colspan': '2' }, false, false, true, KeyActionType.InsertTextAction, 'english', currentElement);
 
   test("InsertTextAction", () => {
     let input = document.createElement('input');

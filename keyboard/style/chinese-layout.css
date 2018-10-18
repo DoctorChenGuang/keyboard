@@ -1,0 +1,49 @@
+.chinese-candidate-bar{
+  position: relative;
+  height: 60px;
+  width: 100%;
+}
+
+.pageturning{
+  outline: none;
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid #B5B6B6;
+  background-color: #FDFDFD;
+  border-radius: 1px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pageturning>span{
+	font-size: 22px;
+  text-align: center;
+  color: #8A8A8A;
+}
+
+.candidate-slot{
+  display: block;
+  text-align: left;
+  height: 55px;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #B5B6B6;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.candidate-slot button{
+  padding: 0;
+  margin: 0 10px;
+  outline: none;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 0;
+  background-color: #FDFDFD;
+  border-radius: 1px;
+  cursor: pointer;
+  overflow: hidden;
+  top:0;
+  height: 55px;
+  color: #8A8A8A;
+}

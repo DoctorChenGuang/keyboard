@@ -12,9 +12,9 @@ interface eventReturnResult {
 interface EventArgs {
   action: string;
 
-  code: string;
+  code?: string;
 
-  keyCode: number;
+  keyCode?: number;
 
   isComposing?: boolean;
 
@@ -263,7 +263,29 @@ export class EmulateKeyboardEvent {
     this.createCompositionEvent(EventType.Compositionend, eventArgs);
   }
 
-  private _isSupportInputEvent(Ctor) {
+  private _isSupportInputEvent(Ctor: any): boolean {
     return Ctor && typeof Ctor === "function" && /native code/.test(Ctor.toString())
+  }
+
+  // canvas event
+  //手写板默认第一个字符输入，这个行为有点问题
+  public emulateCanvasCandidate(eventArgs: EventArgs, cb: any): void {
+    this.createCompositionEvent(EventType.Compositionstart, eventArgs);
+
+    this.createInputEvent(EventType.Beforeinput, eventArgs);
+    this.createCompositionEvent(EventType.Compositionupdate, eventArgs);
+    this.createInputEvent(EventType.Input, eventArgs);
+
+    this.createInputEvent(EventType.Beforeinput, eventArgs);
+    this.createCompositionEvent(EventType.Compositionupdate, eventArgs);
+    let textInputEvent = this.createInputEvent(EventType.TextInput, eventArgs);
+
+    cb();
+
+    if (!textInputEvent.cancelled) {
+      this.createInputEvent(EventType.Input, eventArgs);
+    }
+
+    this.createCompositionEvent(EventType.Compositionend, eventArgs);
   }
 };

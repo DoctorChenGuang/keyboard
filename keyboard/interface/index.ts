@@ -2,6 +2,7 @@ import { KeyActionType } from "../key/key-action/key-action-type";
 import { KeyEventListenerType } from "../key/event-listener/event-listener-type";
 import { Keyboard } from "../keyboard-manager";
 
+//对于接口的定义，是否应该是全局的
 export interface KeyInfo {
   key: string;
   row: string;
@@ -35,6 +36,7 @@ export interface KeyConfig {
   isComposing: boolean;
   keyActionName: string;
   setInitState: string;
+  isNumeric: boolean;
 }
 
 export interface LayoutConfig {
@@ -55,4 +57,10 @@ export interface LayoutOptions {
   layoutInitState?: string;
   hasLayoutKey: boolean;
   disabledLayoutKeyList?: Set<string>;
+}
+
+export enum PinyinCombStrUpdateType {
+  Cancel,
+  Insert,
+  Update
 }

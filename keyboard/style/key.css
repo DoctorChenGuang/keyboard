@@ -1,6 +1,29 @@
+.aui-keyboard-button{
+  outline: none;
+  position: absolute;
+  box-sizing: border-box;
+  border: 4px solid #B5B6B6;
+  border-radius: 5px;
+  background-color: #FDFDFD;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.aui-keyboard-button span {
+	display: inline-block;
+	width: 100%;
+	font-size: 22px;
+  text-align: center;
+  color: #8A8A8A;
+}
+
+.aui-keyboard-key-active{
+  background-color: orange;
+}
+
 /* disabled key color */
 .aui-keyboard-key-disabled{
-  color: #DCDDDD;
+  background-color: #DCDDDD;
 }
 
 /* hand-write: candidate */

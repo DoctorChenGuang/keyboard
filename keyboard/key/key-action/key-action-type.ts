@@ -9,7 +9,8 @@ export enum KeyActionType {
   None
 };
 
-//此函数需要优化,函数应该有接口，用于用户自定义函数,用户可能会自定义按键,以及案件的额功能
+//此函数需要优化,函数应该有接口，用于用户自定义函数,用户可能会自定义按键,以及案件的额功能,
+//对于布局以及set的切换，应该统一
 export function getKeyActionType(keyName): KeyActionType {
   let keyActionType;
 
@@ -44,7 +45,7 @@ export function getKeyActionType(keyName): KeyActionType {
       break;
 
     case "candidate":
-      keyActionType = KeyActionType.InsertTextAction;
+      keyActionType = KeyActionType.CandidateSlotAction;
       break;
 
     case 'shift':

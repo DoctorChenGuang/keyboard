@@ -14,6 +14,14 @@ export function mergeOptions(defaultOptions, newOptions) {
   console.log('合并选项');
 }
 
+//如何标记数字小键盘,布局结构需要更改????
+export function isNumeric(keyName, ownerLayoutName): boolean {
+  if (ownerLayoutName === 'chinese' || ownerLayoutName === 'symbol' || ownerLayoutName === 'hand-write' || ownerLayoutName === 'english') {
+    return false;
+  }
+  return false;
+}
+
 // 应该有一个CompsingState状态，用于判断是否是中文输入状态  //如果是中文输入状态,
 export function isComposing(ownerLayoutName: string): boolean {
   let isCompsing = true;

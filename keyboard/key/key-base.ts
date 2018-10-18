@@ -5,6 +5,7 @@ import { KeyPosManager } from "../keyboard-pos-manager/key-pos-manager";
 import { KeyEvent } from "./key-event";
 import { Key } from "./key";
 import { CanvasManagerInstance } from "../handwriting-canvas/canvas-manager";
+import { CandidateSlot } from '../handwriting-canvas'; //此处的写法需要修改，暂时先完成功能
 
 interface KeyCss {
   keyText: string;
@@ -20,8 +21,12 @@ interface KeyCss {
 
 //对于key，还应该继续拆开
 export abstract class KeyBase {
-  public keyContainerWidth: number = 38.75;
-  public keyContainerHeight: number = 38.75;
+  //这两个属性应该是可以设置的
+  public static keyContainerWidth: number = 38.75;
+  public static keyContainerHeight: number = 38.75;
+
+  public keyContainerWidth: number = KeyBase.keyContainerWidth;
+  public keyContainerHeight: number = KeyBase.keyContainerHeight;
   public keyWidth: number = 37;
   public keyHeight: number = 37;
   public _keyBtnElement!: HTMLButtonElement;
@@ -67,6 +72,9 @@ export abstract class KeyBase {
   public keyActionName: string;
   public setInitState: string;
 
+  public isNumeric: boolean;
+  public numberMargin: number = 0; //对于数字小键盘，如何标记
+
   //此处需要可配置????
   public inkRecognitionHandlerType: string = 'web';//这个配置项应该是在手写布局里面配置的
 
@@ -97,6 +105,7 @@ export abstract class KeyBase {
     this.isComposing = keyConfig.isComposing;
     this.keyActionName = keyConfig.keyActionName;
     this.setInitState = keyConfig.setInitState;
+    this.isNumeric = keyConfig.isNumeric;
   }
 
   public initKeyBtn(_this: Key): void {
@@ -124,6 +133,7 @@ export abstract class KeyBase {
     this._keyBtnElement.innerHTML = keyContent;
 
     this._isCanvasBtn() && this._createCanvas(); // 这个应该有更好的处理方式
+    this.action === 'candidate' && CandidateSlot.candidateSlotList.push(this);
 
     for (let item in buttonAttr) {
       this._keyBtnElement.setAttribute(item, buttonAttr[item]);

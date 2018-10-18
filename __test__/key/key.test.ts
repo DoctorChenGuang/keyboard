@@ -6,10 +6,10 @@ import { KeyEventListenerType } from '../../keyboard/key/event-listener/event-li
 
 describe("key", () => {
   let currentElement = document.createElement('input');
-  let keyBtn = Key.getKeyBtn({ 'key': 'q', 'row': '0', 'col': '2', 'colspan': '2' }, false, false, true, KeyActionType.InsertTextAction, 'english', currentElement);
+  let keyBtn = Key.create({ 'key': 'q', 'row': '0', 'col': '2', 'colspan': '2' }, false, false, true, KeyActionType.InsertTextAction, 'english', currentElement);
   test('should be new key', () => {
     console.log('00000000000000');
-    // let keyBtn = Key.getKeyBtn({ 'key': 'q', 'row': '0', 'col': '2', 'colspan': '2' }, false, false, true);
+    // let keyBtn = Key.create({ 'key': 'q', 'row': '0', 'col': '2', 'colspan': '2' }, false, false, true);
   });
 
   // test('key add click event', () => {

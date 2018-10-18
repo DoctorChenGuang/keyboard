@@ -29,7 +29,7 @@ export class PageTurningBtn {
   public parent: CandidateBarWithIme;
 
   public css: PageTurningKBtnCss = {
-    pageTurningPrefix: 'pageturning-'
+    pageTurningPrefix: 'pageturning'
   }
 
   constructor(candidateBarContainer: HTMLDivElement, pageTurningBtnName: PageTurningBtnType, parent: CandidateBarWithIme) {
@@ -49,11 +49,12 @@ export class PageTurningBtn {
   public createPageTurningBtn(pageTurningBtnInstance: PageTurningBtn): void {
     this.pageTurningBtn = document.createElement('button');
 
-    this.pageTurningBtn.classList.add(this.css.pageTurningPrefix + this.pageTurningBtnName);
+    this.pageTurningBtn.classList.add(this.css.pageTurningPrefix);
+    this.pageTurningBtn.classList.add(this.css.pageTurningPrefix + "-" + this.pageTurningBtnName);
     this.pageTurningBtn.innerHTML = `<span>${pageTurningBtnTxt[this.pageTurningBtnName]}</span>`;
     this._setStyle(this.pageTurningBtn);
 
-    EventListenerManagerInstance.setEventListener(KeyEventListenerType.Normal, this.pageTurningBtn, this._getAction, <any>pageTurningBtnInstance);
+    EventListenerManagerInstance.setEventListener(KeyEventListenerType.Normal, this.pageTurningBtn, this._getAction.bind(this), <any>pageTurningBtnInstance);
 
     this.candidateBarContainer.appendChild(this.pageTurningBtn);
   }
@@ -63,17 +64,17 @@ export class PageTurningBtn {
 
     let line = this.parent.line;
 
-    if (!line && line <= 0) return;
+    // if (line < 0) return;
 
-    if (this.parent.counter <= 0) {
-      this.parent.counter = 0;
-      return;
-    }
+    // if (this.parent.counter < 0) {
+    //   this.parent.counter = 0;
+    //   return;
+    // }
 
-    if (this.parent.counter >= line) {
-      this.parent.counter = line;
-      return;
-    }
+    // if (this.parent.counter >= line) {
+    //   this.parent.counter = line;
+    //   return;
+    // }
 
     this.parent.counter = this.parent.counter + increment;
     this.parent.currentLine = this.parent.currentLine + increment;

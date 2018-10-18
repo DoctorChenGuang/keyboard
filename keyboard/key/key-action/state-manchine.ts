@@ -2,6 +2,7 @@ export class StateMachine {
   public static stateList: Map<string, any> = new Map();
 
   //函数逻辑重复，需要优化
+  //应该换一种模式
   public static register(ownerState: string, ownerDom: HTMLDivElement, layoutName: string, setName?: string): void {
     if (!this.stateList.has(ownerState)) {
       this.stateList.set(ownerState, new Map());

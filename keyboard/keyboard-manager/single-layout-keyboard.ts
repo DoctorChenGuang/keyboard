@@ -15,13 +15,13 @@ export class SingleLayoutKeyboard extends Keyboard {
   public async show(): Promise<void> {
     await this.initConfig();
 
-    this.createKeyboardContainer();
+    this.createKeyboard();
 
     let layoutOptions = this.getLayoutAllInfo();
 
     this.createLayout(layoutOptions);
 
-    this.parentDom.appendChild(this.keyboardContiner);
+    this.parentDom.appendChild(this.screenKeyboardContainer);
 
     // //这个写法需要优化下,传入布局的名称就可以了,
     // //其实不需要这个所谓的不同的布局，只需要一个创建布局的工厂函数，这个创建不同的布局。
@@ -31,11 +31,11 @@ export class SingleLayoutKeyboard extends Keyboard {
     // // let span = document.createElement('span');
     // // span.innerText = '赞同科技';
 
-    // // SlotDom.after("createKeyboardContainer", () => {
+    // // SlotDom.after("createKeyboard", () => {
     // //   this.keyboardContiner.appendChild(span);
     // // }, [this]);
     // // layoutContainer && layoutContainer.appendChild(span);
-    // layoutContainer && this.createKeyboardContainer();
+    // layoutContainer && this.createKeyboard();
 
     // this.parentDom.appendChild(this.keyboardContiner);
   }

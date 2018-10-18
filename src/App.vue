@@ -9,7 +9,7 @@
     <input type="text" v-keyboard="{type: 'phoneNumber', keyboardPlacement: 'Top'}">
     <input type="text" v-keyboard="'number'">
     <input type="text" v-keyboard="{type: 'normal', availableLayoutNames: 'chinese'}">
-  <!-- 需要去掉空格 -->
+    <!-- 需要去掉空格 -->
     <input type="text" v-keyboard="{type: 'normal', availableLayoutNames: 'chinese,english'}">
     <input type="text" v-keyboard="{type: 'normal', availableLayoutNames: 'chinese,symbol'}">
   </div>
@@ -36,3 +36,10 @@
     }
   }
 </script>
+<style>
+  body,
+  html {
+    width: 100%;
+    height: 100%;
+  }
+</style>

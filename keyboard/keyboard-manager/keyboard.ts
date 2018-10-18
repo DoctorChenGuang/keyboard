@@ -5,9 +5,9 @@ import { StateMachine } from '../key';
 import { LayoutOptions } from '../interface';
 
 enum KeyboardPlacement {
-  Bottom,
-  Float,
-  Top
+  Bottom = "bottom",
+  Float = 'float',
+  Top = 'top'
 }
 
 interface KeyboardConfig {
@@ -32,16 +32,15 @@ export abstract class Keyboard {
   public isShow: boolean = false;
   public keyboardPlacement: KeyboardPlacement = KeyboardPlacement.Bottom;//这个也应该是配置
   public hasShiftKey: boolean = false;
-
+  public screenKeyboardContainer!: HTMLDivElement;
+  public keyboardContainer!: HTMLDivElement;
   public parentDom: HTMLElement = document.body; //这个父级元素应该是匹配的
 
   public keyboardCss: KeyboardCss = {
-    keyboardContainer: 'aui-keyboard-container-',
+    keyboardContainer: 'aui-keyboard-container',
     keyboard: "aui-keyboard",
     keySet: "aui-keyboard-keyset"
   };
-
-  public keyboardContiner!: HTMLDivElement;
 
   constructor(currentInputElement: any, keyboardOptions: KeyboardConfig) {
     this.currentInputElement = currentInputElement;
@@ -54,17 +53,28 @@ export abstract class Keyboard {
   public abstract getLayoutAllInfo(layout?: any, layoutName?: string): void;
 
   public createKeyboardContainer(): void {
-    this.keyboardContiner = document.createElement('div');
+    this.keyboardContainer = document.createElement('div');
+
+    this.keyboardContainer.classList.add(this.keyboardCss.keyboardContainer);
+    this.keyboardContainer.classList.add(this.keyboardCss.keyboardContainer + "-" + this.keyboardName);
+  }
+
+  public createKeyboard(): void {
+    this.screenKeyboardContainer = document.createElement('div');
 
     //此处的事件监听应该抽取出来,这些应该有一个更加优雅的方式，切面，装饰器还是什么设计模式，不要这样写
-    this.keyboardContiner.addEventListener('mousedown', (e) => {
+    this.screenKeyboardContainer.addEventListener('mousedown', (e) => {
       e.preventDefault();
     });
-    this.keyboardContiner.addEventListener('touchstart', (e) => {
+    this.screenKeyboardContainer.addEventListener('touchstart', (e) => {
       e.preventDefault();
     });
 
-    this.keyboardContiner.classList.add(this.keyboardCss.keyboardContainer + this.keyboardName);
+    this.createKeyboardContainer();
+    this.screenKeyboardContainer.appendChild(this.keyboardContainer);
+
+    this.screenKeyboardContainer.classList.add(this.keyboardCss.keyboard);
+    this.screenKeyboardContainer.classList.add(this.keyboardCss.keyboard + "-" + this.keyboardPlacement);
   }
 
   public createLayout(layoutOptions: LayoutOptions): void {
@@ -86,7 +96,7 @@ export abstract class Keyboard {
 
     if (!layoutContainer) throw new Error('keyboard: layout is create failed');
 
-    this.keyboardContiner.appendChild(layoutContainer);
+    this.keyboardContainer.appendChild(layoutContainer);
   }
 
   //这个函数应该优化,对于用户的使用，一定要友好，尽量让用户感受到友好, 函数的功能还需要更加的具体

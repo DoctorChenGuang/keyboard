@@ -32,7 +32,7 @@ export class MultiLayoutKeyboard extends Keyboard {
   public async show(): Promise<void> {
     await this.initConfig();
 
-    this.createKeyboardContainer();
+    this.createKeyboard();
 
     this.getAvailableLayoutNameList();
 
@@ -56,7 +56,7 @@ export class MultiLayoutKeyboard extends Keyboard {
 
     StateMachine.initState('layout', this.layoutInitState);
 
-    this.parentDom.appendChild(this.keyboardContiner);
+    this.parentDom.appendChild(this.screenKeyboardContainer);
   }
 
   public close() {

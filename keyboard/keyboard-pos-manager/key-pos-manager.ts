@@ -6,6 +6,7 @@ export class KeyPosManager {
   static getKeyInfo(keyOptions: any): void {
     this.keyOptions = keyOptions;
   }
+
   //按键的设置不应该区分按键的种类
   public static computedKeyPosition(keyList, keyBtn: Key): void {
     let rowspan = keyList.rowspan ? keyList.rowspan : 1;
@@ -17,7 +18,7 @@ export class KeyPosManager {
     let colspans = colspan > 2 ? ((keyBtn.keyContainerWidth - keyBtn.keyWidth) * 2 * (colspan / 2 - 1)) : 0;
     let rowspans = rowspan > 1 ? (keyBtn.keyContainerHeight - keyBtn.keyHeight) * 2 * (rowspan - 1) : 0;
     // //数字小键盘添加间距
-    let numberMargin = 0;
+    // let numberMargin = 0;
     // if (this.keyboardType === 'default') {
     //   let classList = keyClass.split(' ');
     //   if (classList.indexOf('aui-keyboard-small-number') > -1) {
@@ -31,8 +32,7 @@ export class KeyPosManager {
     keyBuuton.style.width = keyBtn.keyWidth * colspan + colspans + 'px';
     keyBuuton.style.height = keyBtn.keyHeight * rowspan * 2 + rowspans + 'px';
 
-    // console.log('col', col);
-    keyBuuton.style.left = col * keyBtn.keyContainerWidth + keyBtn.keyContainerWidth - keyBtn.keyWidth + numberMargin + 'px';
+    keyBuuton.style.left = col * keyBtn.keyContainerWidth + keyBtn.keyContainerWidth - keyBtn.keyWidth + keyBtn.numberMargin + 'px';
     keyBuuton.style.top = row * keyBtn.keyContainerHeight * 2 + keyBtn.keyContainerHeight - keyBtn.keyHeight + 'px';
     // if (this.keyboardStyle == 'chinese') {
     //   //中文键盘

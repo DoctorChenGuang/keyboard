@@ -1,6 +1,9 @@
 import { Canvas } from './canvas';
 import { FontLoader } from './font-loader';
-// import { InsertTextAction } from '../key/key-action/insert-text-action';
+import { InsertTextAction } from '../key/key-action/insert-text-action'
+import { EmulateKeyboardEvent } from '../key';
+import { InputType } from '../util/util';
+import { CandidateSlot } from './candidate-slot';
 
 export class CanvasManager {
   public currentCanvasName: string = "";
@@ -39,8 +42,8 @@ export class CanvasManager {
   }
 
   public clearNotPaintCanvas(): void {
-    this.canvasMap.forEach((value) => {
-      value.canvasName !== this.currentCanvasName && this.clear(value.drawingBoard);
+    this.canvasMap.forEach((canvas) => {
+      canvas.canvasName !== this.currentCanvasName && this.clear(canvas.drawingBoard);
     });
   }
 
@@ -49,6 +52,13 @@ export class CanvasManager {
 
     drawingBoard.clearCanvas();
     drawingBoard.redraw();
+  }
+
+  public clearAllCanvas(): void {
+    this.canvasMap.forEach((canvas) => {
+      canvas.drawingBoard.clearCanvas();
+      canvas.drawingBoard.redraw();
+    });
 
     this.isPainting = false;
   }
@@ -59,8 +69,20 @@ export class CanvasManager {
     this._insertText(this.resultList[0]);
   }
 
-  private _insertText(txt) {
-    console.log('需要插入字符', txt);
+  //此函数需要优化，不应该放在这里，应该提取出来
+  private _insertText(txt: string): void {
+    let key = CandidateSlot.candidateSlotList[0];
+    let eventArgs = {
+      action: txt,
+      isComposing: true,
+      inputType: InputType.InsertCompositionText
+    };
+    let eventAction = InsertTextAction.getKeyAction();
+
+    let keyboardEvent = EmulateKeyboardEvent.getEmulateKeyboardEvent(key._keyBtnElement);
+    keyboardEvent.emulateCanvasCandidate(eventArgs, () => {
+      eventAction(txt, key, key.currentElement);
+    });
   }
 }
 

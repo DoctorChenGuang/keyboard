@@ -7,7 +7,7 @@ import {
   InsertTextAction,
   CandidateSlotAction,
   SwtichSetAction,
-  LayoutSwitchAction
+  LayoutSwitchAction,
 } from './index';
 
 //对于事件的添加，有点过于复杂，最好优化一下，应该提供一个接口，用于注册事件,注册一次，永久使用,我们是目标是优雅，优雅，优雅！！！

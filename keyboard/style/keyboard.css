@@ -1,76 +1,53 @@
-/* 键盘容器 */
-[class^="aui-keyboard-container-"]{
+.aui-keyboard{
+  margin: 0;
+  padding: 0;
+  border: 1px solid #B5B6B6;
+  box-sizing: border-box;
+  background-color: #DCDDDD;
   z-index: 9999999;
 }
 
-.aui-keyboard {
+.aui-keyboard-bottom{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+}
+
+.aui-keyboard-Float{
+  display: block;
+  position: absolute;
+}
+
+.aui-keyboard-container{
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+}
+
+.layout-container{
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  /* width: 1280px; */
+}
+
+.aui-keyboard-keyset {
   text-align: center;
   position: relative;
   box-sizing: border-box;
 }
 
-.aui-keyboard-container-phoneNUmber{
-  width: 334px;
-  height: 366px;
-  background-color: #DCDDDD;
-  position: fixed;
-  padding: 27px 11px;
-  box-sizing: border-box;
-  border: 1px solid #B5B6B6;
-}
-
-.aui-keyboard-button{
-  outline: none;
-  position: absolute;
-  box-sizing: border-box;
-  border: 4px solid #B5B6B6;
-  border-radius: 5px;
-  background-color: #FDFDFD;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.aui-keyboard-button span {
-	display: inline-block;
-	width: 100%;
-	font-size: 22px;
-  text-align: center;
-  color: #8A8A8A;
-}
-
-.aui-keyboard-key-active{
-  background-color: orange;
+.aui-keyboard-container-normal{
+  /* width: 1280px; */
+  padding: 27px 13px;
 }
 
 /* 数字键盘以及相关的数字键盘 */
 .aui-keyboard-container-number, .aui-keyboard-container-chineseId, .aui-keyboard-container-phoneNumber, .aui-keyboard-container-numberWithoutPoint, .aui-keyboard-container-numberMinus{
-  width: 334px;
-  height: 366px;
-  background-color: #DCDDDD;
-  position: fixed;
+  /* width: 334px;
+  height: 366px; */
   padding: 27px 11px;
-  box-sizing: border-box;
-  border: 1px solid #B5B6B6;
-}
-
-/* 全键盘不需要的布局应该被禁用掉 */
-[isdisabled="true"] {
-  background-color: #DCDDDD;
-}
-
-
-/* 键盘布局 */
-/* 全键盘容器布局 */
-.aui-keyboard-container-normal{
-  margin: 0 auto;
-  width: 1280px;
-  background-color: #DCDDDD;
-  position: fixed;
-  /* bottom: 0; */
-  padding: 27px 13px;
-  box-sizing: border-box;
-  border: 1px solid #B5B6B6;
-  margin: 0 auto;
-  left:0;  
-  right:0;
 }

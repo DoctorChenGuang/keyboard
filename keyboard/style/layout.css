@@ -1,1 +1,13 @@
+/* chinese pinyin bar */
+.aui-pinyin-combstr-bar{
+  display: block;
+  box-sizing: border-box;
+}
+
+.aui-pinyin-combstr-bar-txt{
+  text-align: left;
+  font-size: 22px;
+  color: black;
+  vertical-align: middle;
+}
 

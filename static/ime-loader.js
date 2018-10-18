@@ -297,6 +297,7 @@ const IME = {
     return sort(result);
   }
 
+  //此函数需要优化
   function getWords(value) {
     let result = {};
     let data = value;

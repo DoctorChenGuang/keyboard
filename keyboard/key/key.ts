@@ -6,7 +6,7 @@ export class Key extends KeyBase {
     super(keyInfo, currentElement, keyConfig);
   }
 
-  public static getKeyBtn(keyInfo: KeyInfo, currentElement: HTMLInputElement, keyConfig: KeyConfig): Key {
+  public static create(keyInfo: KeyInfo, currentElement: HTMLInputElement, keyConfig: KeyConfig): Key {
     let keyBtn = new Key(keyInfo, currentElement, keyConfig);
 
     keyBtn.initKeyBtn(keyBtn);

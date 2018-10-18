@@ -1,5 +1,6 @@
 import { CanvasManager } from './canvas-manager';
 import { InkRecognitionHandler } from './ink-recognition-handler';
+import { CandidateSlot } from './candidate-slot';
 
 export class Canvas {
   public drawingBoard;
@@ -11,6 +12,8 @@ export class Canvas {
   public canvasDom: HTMLButtonElement;
 
   public analyzedCharCount: number;
+
+  public isGetDefaultChars: boolean = true; //此处的属性需要是可配置的
 
   constructor(canvasName: string, canvasDom: HTMLButtonElement, analyzedCharCount: number = 8) {
     this.canvasName = canvasName;
@@ -36,7 +39,7 @@ export class Canvas {
       this.canvasManager.clearNotPaintCanvas();
 
       //此功能应该设置是否打开
-      this.canvasManager.getDefaultChars();
+      this.isGetDefaultChars && this.canvasManager.getDefaultChars();
     }
 
     let analyzedChar = new HanziLookup.AnalyzedCharacter(this.drawingBoard.cloneStrokes());
@@ -45,12 +48,6 @@ export class Canvas {
 
     this.canvasManager.resultList = matchResult;
 
-    this.showCandidate(matchResult);
-  }
-
-  public showCandidate(matchResult: Array<string>): void {
-    console.log('显示候选词', matchResult);
-    console.log('候选词还需要智能提示');
-    //如果候选词槽是空的，则点击应该是没有反应的
+    CandidateSlot.showCandidate(matchResult);
   }
 };
