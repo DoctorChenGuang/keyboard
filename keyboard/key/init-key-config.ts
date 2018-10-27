@@ -5,7 +5,7 @@ import {
 import { KeyInfo } from '../interface';
 import { getKeyActionType } from './key-action/key-action-type';
 import { KeyConfig } from '../interface';
-
+//此文件不在需要
 //这个函数需要优化
 export function initKeyConfig({ keyInfo, ownerLayoutName, keyboardName, ownerSetName, disabledLayoutKeyList, setInitState }): any {
   let keyName = getKeyName(keyInfo.key);

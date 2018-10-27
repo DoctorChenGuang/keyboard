@@ -1,6 +1,7 @@
 import { KeyBase } from './key-base';
 import { KeyConfig, KeyInfo } from '../interface';
 
+//这个应该是NormalKey
 export class Key extends KeyBase {
   constructor(keyInfo: KeyInfo, currentElement: HTMLInputElement, keyConfig: KeyConfig) {
     super(keyInfo, currentElement, keyConfig);

@@ -132,7 +132,7 @@ export class CandidateBarWithIme {
         }
 
         if (line === currentLine) {
-          new CandidateSlot().createCandidateSlot(this.candidateSlotContainer, words[j], this);
+          // new CandidateSlot().createCandidateSlot(this.candidateSlotContainer, words[j], this);
         }
       }
     }

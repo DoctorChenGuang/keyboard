@@ -37,6 +37,7 @@ export interface KeyConfig {
   keyActionName: string;
   setInitState: string;
   isNumeric: boolean;
+  isReadOnly: boolean;
 }
 
 export interface LayoutConfig {

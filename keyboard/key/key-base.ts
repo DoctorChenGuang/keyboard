@@ -19,7 +19,7 @@ interface KeyCss {
   setKey: string;
 }
 
-//对于key，还应该继续拆开
+//对于key，还应该继续拆开,需要更加细化
 export abstract class KeyBase {
   //这两个属性应该是可以设置的
   public static keyContainerWidth: number = 38.75;

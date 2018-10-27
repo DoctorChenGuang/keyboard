@@ -1,6 +1,6 @@
 import { SetOfLayout } from './set-of-layout';
 import { KeyInfo, KeyConfig } from '../interface';
-import { initKeyConfig, Key } from '../key';
+import { initKeyConfig, KeyFactory, Key } from '../key';
 import { util } from '../util';
 import { getKeyActionType } from '../key/key-action';
 
@@ -25,7 +25,9 @@ export class Row {
     rowList.forEach((key: KeyInfo) => {
       let keyConfig = initKeyConfig({ keyInfo: key, ownerLayoutName: this.set.currentLayout.layoutName, keyboardName: this.set.currentLayout.ownerKeyboardName, ownerSetName: this.setName, disabledLayoutKeyList: this.set.currentLayout.disabledLayoutKeyList, setInitState: this.set.currentLayout.setInitState });
 
-      let keyBtn = Key.create(key, this.currentInputElement, keyConfig);
+      //此处需要修改
+      // let keyBtn = Key.create(key, this.currentInputElement, keyConfig);
+      let keyBtn = KeyFactory.create("normal", key, this.currentInputElement, keyConfig);
 
       this.setContainer.appendChild(keyBtn._keyBtnElement);
     });
@@ -61,7 +63,8 @@ export class Row {
       isComposing: false, //是否为中文输入状态需要配置
       keyActionName: util.getKeyActionName(keyName),
       setInitState: setInitState,
-      isNumeric: util.isNumeric(keyName, ownerLayoutName)
+      isNumeric: util.isNumeric(keyName, ownerLayoutName),
+      isReadOnly: false
     }
   };
 };

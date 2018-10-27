@@ -22,7 +22,7 @@ export class KeyEvent {
     this.key = key;
   }
 
-  public static registerEvent(key: Key): KeyEvent {
+  public static registerEvent(key: any): KeyEvent {
     let keyEvent = new KeyEvent(key);
 
     EventListenerManagerInstance.setEventListener(key.keyEventListenerType, key._keyBtnElement, keyEvent.getKeyAction.bind(this, key.keyActionType, keyEvent), key);
@@ -36,7 +36,7 @@ export class KeyEvent {
     keyEvent.emulateKeyboardEvent(keyAction);
   }
 
-  //这个函数应该持续优化
+  //这个函数应该持续优化,应该定义成接口的形式
   public emulateKeyboardEvent(cb: (action: string, key: Key, currentElement: HTMLInputElement, setName: string, layoutName: string, setInitState: string) => void): void {
     let key = this.key;
     let action = this.key.action;

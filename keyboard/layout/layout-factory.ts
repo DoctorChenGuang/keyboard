@@ -1,7 +1,6 @@
 import { LayoutConfig } from "../interface";
 import { ChineseLayout } from '../chinese';
 import { NormalLayout } from "./normal-layout";
-import { LayoutAddtionalDom } from './layout-dom'; //也不是很对
 
 export class LayoutFactory {
   public static layoutGenerator(layoutConfig: LayoutConfig): HTMLDivElement | void {

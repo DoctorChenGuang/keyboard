@@ -21,4 +21,4 @@ export class CandidateSlotAction extends KeyAction {
     CanvasManagerInstance.clearAllCanvas();
     CandidateSlot.clearCandidate();
   }
-}
+};

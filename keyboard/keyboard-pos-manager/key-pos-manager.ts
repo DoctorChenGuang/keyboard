@@ -8,7 +8,7 @@ export class KeyPosManager {
   }
 
   //按键的设置不应该区分按键的种类
-  public static computedKeyPosition(keyList, keyBtn: Key): void {
+  public static computedKeyPosition(keyList, keyBtn: any): void {
     let rowspan = keyList.rowspan ? keyList.rowspan : 1;
     let colspan = keyList.colspan;
 

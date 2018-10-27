@@ -20,7 +20,7 @@ export class InsertTextAction extends KeyAction {
       //应该判断是否为中文输入状态
       //对于这些函数，应该放在chinese-layout里面进行。
 
-      // await ChineseLayout.instance.chineseInsertAction(action);
+      await ChineseLayout.instance.chineseInsertAction(action);
       return;
     }
 

@@ -6,6 +6,7 @@ import { KeyActionType } from './key-action/key-action-type';
 import { KeyEventManagerInstance } from './key-action/key-action-manager';
 import { StateMachine } from './key-action/state-manchine';
 import { KeyBase } from './key-base';
+import { KeyFactory } from './keys';
 
 export {
   Key,
@@ -15,5 +16,6 @@ export {
   KeyActionType,
   initKeyConfig,
   StateMachine,
-  KeyBase
+  KeyBase,
+  KeyFactory
 }

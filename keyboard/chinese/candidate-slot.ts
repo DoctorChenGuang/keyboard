@@ -6,7 +6,6 @@ import { EmulateKeyboardEvent } from '../key/emulate-keyboard-event';
 import { EventType } from "../key/event-type";
 import { KeyInfo, KeyConfig } from "../interface";
 
-//为什么不可以继承
 export class CandidateSlot extends KeyBase {
   public candidateSlotCss = {
     candidate: 'candidate-pharse'
@@ -19,6 +18,11 @@ export class CandidateSlot extends KeyBase {
   // constructor(keyInfo: KeyInfo, currentElement: HTMLInputElement, keyConfig: KeyConfig) {
   //   super(keyInfo, currentElement, keyConfig);
   // }
+
+  public static create(): void {
+    let candidateSlot = new CandidateSlot();
+    candidateSlot.createCandidateSlot();
+  }
 
   public createCandidateSlot(parentNode: Node, candidateTxt: string, parent: CandidateBarWithIme): void {
     let candidateSlot = document.createElement('button');

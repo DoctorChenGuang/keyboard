@@ -14,7 +14,7 @@ export class PinyinComstrBar {
   public pinyinCombStrTxt!: HTMLSpanElement;
 
   public combStrBarHeight: number = 36; // 应该是可配置的
-  public combStrBarWidth: string = "100%";
+  public combStrBarWidth: string = "100%"; //宽度应该也是可有配置的？？？
 
   public css: PinyinComstrBarCss = {
     name: "pinyin-combStr",
